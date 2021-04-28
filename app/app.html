@@ -10,6 +10,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="../js/zip.js"></script>
 
     <script defer src="../js/covid.js"></script>
   </head>
@@ -17,9 +18,11 @@
     <section class="container border rounded bg-light w-auto mx-auto mt-5 p-3">
       <h1 class="mt-2 mb-4">Covid-19</h1> 
       <div class="form-group">
-        <label for="inputName">Localtion</label>
-        <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" onchange ="doSearch()">
-      </div>      <div>
+        <label for="inputName">Zip <Code></Code></label>
+        <input type="text" placeholder ="Example: 97230" class="form-control" id="inputName" aria-describedby="nameHelp" onchange ="doSearch()">
+      </div>      
+      <div>
+        <p id="chartTitle"></p>
         <canvas id="myChart"></canvas>
       </div>
     </section>
