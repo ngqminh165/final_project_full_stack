@@ -1,0 +1,22 @@
+/* For navigation bar*/
+ul.nav li:hover > ul.dropdown-menu {
+    display: block;
+  }
+  
+  #navbar {
+    text-align: center;
+    padding-bottom: 0;
+  }
+  
+  .input-group input {
+    padding-right: 2.2rem;
+  }
+  
+.nav-link:hover{
+    background-color:rgb(14, 107, 14);
+}
+
+a{
+    font-size: 18px;
+}
+

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript Create Form</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="" />
+    <!-- <script defer src="party.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script defer src="js/zip.js"></script>
+    <script defer src="js/covid.js"></script>
+  </head>
+  <body>
+    <main>
+        <!--Navigation bar-->
+        <div id="nav-placeholder">
+
+        </div>
+
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("navbar.html");
+    });
+    </script>
+      <!--end of Navigation bar-->
+
+      <!-- Add your code here -->
+      <div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+                
+				<span class="formName">
+					Create new party !!!!
+				</span>
+
+                <label class="label-input100" for="party">Enter party name *</label>
+				<div class="wrap-input100 validate-input">
+					<input id="party" class="input100" type="text" name="party" placeholder="Eg. partyname" required="required">
+					<span class="focus-input100"></span>
+				</div>
+				<label class="label-input100" for="first-name">Tell us your host name *</label>
+				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Type first name">
+					<input id="first-name" class="input100" type="text" name="first-name" placeholder="First name" required="required">
+					<span class="focus-input100"></span>
+				</div>
+				<div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Type last name">
+					<input id="last-name" class="input100" type="text" name="last-name" placeholder="Last name" required="required">
+					<span class="focus-input100"></span>
+				</div>
+
+				<label class="label-input200" for="address">Your location *</label>
+                <label class="label-input300" for="inputName">Zip code *</label>
+				<div class="wrap-input100 rs3-wrap-input100">
+					<input id="address" class="input100" type="address" name="address" placeholder="Eg. Street address, P.O. box, company name, c/o " required="required">
+					<span class="focus-input100"></span>
+				</div>
+                
+                <div class="wrap-input100 rs4-wrap-input100">
+					<input type="text" placeholder ="Eg.97230" class="input100" id="inputName" aria-describedby="nameHelp" onchange ="doSearch()" required="required">
+					<span class="focus-input100"></span>
+				</div>
+
+				<label class="label-input100" for="date">Date *</label>
+				<div class="wrap-input100">
+					<input id="date" class="input100" type="date" name="date" required="required">
+					<span class="focus-input100"></span>
+				</div>
+
+				<label class="label-input100" for="message">List bring *</label>
+				<div class="wrap-input100 validate-input" data-validate = "Message is required">
+					<textarea id="message" class="input100" name="message" placeholder="List the food to bring" required="required"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<input type="submit" id="submit" class="contact100-form-btn" value="+ Create"/>
+                    <input type="button" id="show-element" class="contact100-form-btn" value="Show statistic"/>
+                </div>
+                
+			</form>
+
+            
+
+            <div class="contact100-more flex-col-c-m" id="to-show" class="hide">
+			    <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6"> 
+                            <div class="navy">
+                                <div class="content">
+                                      COVID statistic
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6"> 
+                            <div class="light">
+                                <div class="content">
+                                     Criminal Statistic
+                                    <canvas id="myChart1"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6"> 
+                            <div class="navy">
+                                <div class="content">
+                                        Weather statistic
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6"> 
+                            <div class="light">
+                                <div class="content">
+                                         Police Statistic
+                                    <canvas id="myChart3"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        
+                    </div>
+            </div>            
+				    
+		</div>
+	  </div>
+    </main>
+  </body>
+</html>
