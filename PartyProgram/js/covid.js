@@ -95,6 +95,8 @@ let getData = (url, chart) => {
 
 const doSearch = () => {
     let value = document.querySelector("#inputName").value;
+    if (value.length != 5)
+        return
     let fibs = zip[value]
     let url = `https://api.covidactnow.org/v2/county/${fibs}.json?apiKey=${apiKey}`;
 

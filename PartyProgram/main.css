@@ -6,6 +6,10 @@
 	box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body, html {
 	height: 50%;
 	font-family: Poppins-Regular, sans-serif;
