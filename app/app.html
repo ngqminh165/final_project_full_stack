@@ -13,14 +13,24 @@
     <script defer src="../js/zip.js"></script>
 
     <script defer src="../js/covid.js"></script>
+    <!--Cody Code-->
+    <script defer src="../js/weather.js"></script>
+    <!--End Cody Code-->
   </head>
   <body class="bg-dark">
     <section class="container border rounded bg-light w-auto mx-auto mt-5 p-3">
-      <h1 class="mt-2 mb-4">Covid-19</h1> 
+      <h1 class="mt-2 mb-4">Covid-19</h1>
       <div class="form-group">
-        <label for="inputName">Zip <Code></Code></label>
-        <input type="text" placeholder ="Example: 97230" class="form-control" id="inputName" aria-describedby="nameHelp" onchange ="doSearch()">
-      </div>      
+        <label for="inputName">Zip <code></code></label>
+        <input
+          type="text"
+          placeholder="Example: 97230"
+          class="form-control"
+          id="inputName"
+          aria-describedby="nameHelp"
+          onchange="doSearch()"
+        />
+      </div>
       <div>
         <p id="chartTitle"></p>
         <canvas id="myChart"></canvas>
