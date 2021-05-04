@@ -40,9 +40,18 @@ function getWeather() {
     },
     success: (data) => {
       console.log(data["main"]["temp"] + " F")
+      let ic = data["weather"][0]["icon"]
+      console.log(ic)
+      let iUrl = `http://openweathermap.org/img/wn/${ic}@4x.png`
+      document.getElementById("weatherIcon").src = iUrl
+      document.getElementById("cityName").innerHTML = data["name"]
+      document.getElementById("degree").innerHTML = data["main"]["temp"] + " F"
+      document.getElementById("descript").innerHTML =
+        data["weather"][0]["description"]
     },
   })
 }
+function getIcon() {}
 //function convertTime (API Given in UTC, need to convert to standard date to compare)
 
 //Cody Code End
