@@ -28,11 +28,13 @@ function displayWeather(d) {
 
 let API_KEY = "8d3792116b619ca66e2569b0ec1f39c0"
 
-function getWeather(z) {
+function getWeather() {
+  let value = document.querySelector("#inputName").value
+  if (value.length != 5) return
   $.ajax({
     url: "http://api.openweathermap.org/data/2.5/weather",
     data: {
-      zip: z,
+      zip: value,
       units: "imperial",
       APPID: API_KEY,
     },
