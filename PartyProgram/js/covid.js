@@ -39,12 +39,6 @@ var myChart = new Chart(
 
 
 var myChart = new Chart(
-    document.getElementById('myChart1'),
-    config
-);
-
-
-var myChart = new Chart(
     document.getElementById('myChart2'),
     config
 );
@@ -102,5 +96,6 @@ const doSearch = () => {
 
     console.log(url)
     getData(url, myChart);
+    document.getElementById('to-show').scrollIntoView();
 
 }
