@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import CovidChart from '../Chartjs/Chart'
+import Weather from '../Weather/Weather'
 
 function CreateParty() {
   return (
@@ -46,7 +47,7 @@ function CreateParty() {
                 <CovidChart/>
             </Row>
             <Row>
-                <CovidChart/>
+                <Weather/>
             </Row>
         </Col>
     </Row>

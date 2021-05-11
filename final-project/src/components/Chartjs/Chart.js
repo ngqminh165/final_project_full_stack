@@ -11,9 +11,20 @@ let data = {
       'Vaccinations Initiated',
       'vaccinations Completed'
     ],
-    datasets: []
-  };
 
+    datasets: [{
+        
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 205, 86)',
+        ],
+        borderWidth: 1,
+        data : [37221, 397827, 258219]
+        
+    }]
+    
+  };
 let getData = (url) => {
     
     fetch(url)
@@ -33,7 +44,7 @@ let getData = (url) => {
               item.actuals.vaccinationsCompleted]
       
       }
-      data.datasets.push(singleData.data);
+      //data.datasets.push(singleData.data);
       //chart.data.datasets.push(singleData)
       //chart.update()
   
