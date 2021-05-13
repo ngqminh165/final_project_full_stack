@@ -64,7 +64,6 @@ const CovidChart = props => (
     <div className='header'>
       <h1 className='title'>Covid Chart</h1>
     </div>
-    {props.zipcode}
     <PolarArea data={data} />
   </>
 );

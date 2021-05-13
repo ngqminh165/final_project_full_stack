@@ -50,11 +50,11 @@ function CreateParty() {
         <CovidChart zipcode="11111"/>
 
     </Tab>
-    <Tab eventKey="contact" title="Google Map">
+    <Tab eventKey="googlemap" title="Google Map">
     <SimpleMap/>
 
     </Tab>
-    <Tab eventKey="contact" title="Weather">
+    <Tab eventKey="weather" title="Weather">
     <Weather/>
 
     </Tab>
