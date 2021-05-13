@@ -4,6 +4,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import CovidChart from '../Chartjs/Chart'
 import Weather from '../Weather/Weather'
+import SimpleMap from '../GoogleMap/GoogleMap'
+
 
 function CreateParty() {
   return (
@@ -48,6 +50,9 @@ function CreateParty() {
             </Row>
             <Row>
                 <Weather/>
+            </Row>
+            <Row>
+                <SimpleMap/>
             </Row>
         </Col>
     </Row>
