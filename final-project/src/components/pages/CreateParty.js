@@ -1,21 +1,24 @@
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import CovidChart from '../Chartjs/Chart'
 import Weather from '../Weather/Weather'
 import SimpleMap from '../GoogleMap/GoogleMap'
-
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 
 function CreateParty() {
   return (
     <Container fluid className="mt-3">
-    <Row>
-        <Col md={6} lg={6}>        
-            <Form>
+    <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+    <Tab eventKey="home" title="Home">
+    <Form>
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="name@example.com" />
+                </Form.Group>
+                <Form.Group controlId="formBasicRange">
+                    <Form.Label>Range</Form.Label>
+                    <Form.Control type="range" />
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                     <Form.Label>Example select</Form.Label>
@@ -42,20 +45,20 @@ function CreateParty() {
                     <Form.Control as="textarea" rows={3} />
                 </Form.Group>
             </Form>
-        </Col>
+    </Tab>
+    <Tab eventKey="profile" title="Covid">
+        <CovidChart zipcode="11111"/>
 
-        <Col md={6}>
-            <Row>
-                <CovidChart/>
-            </Row>
-            <Row>
-                <Weather/>
-            </Row>
-            <Row>
-                <SimpleMap/>
-            </Row>
-        </Col>
-    </Row>
+    </Tab>
+    <Tab eventKey="contact" title="Google Map">
+    <SimpleMap/>
+
+    </Tab>
+    <Tab eventKey="contact" title="Weather">
+    <Weather/>
+
+    </Tab>
+    </Tabs>
     </Container>
 
   );
