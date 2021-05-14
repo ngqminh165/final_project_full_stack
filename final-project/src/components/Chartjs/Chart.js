@@ -5,6 +5,7 @@ import { PolarArea } from 'react-chartjs-2';
 const apiKey = '4788701cc7ad4407b055d07a4c8466f1'
 let fibs = 41051
 let url = `https://api.covidactnow.org/v2/county/${fibs}.json?apiKey=${apiKey}`;
+
 let data = {
     labels: [
       'Cases',
@@ -58,7 +59,7 @@ getData(url)
 
 console.log(data)
 
-const CovidChart = () => (
+const CovidChart = props => (
   <>
     <div className='header'>
       <h1 className='title'>Covid Chart</h1>
