@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container'
 import CovidChart from '../Chartjs/Chart'
 import Weather from '../Weather/Weather'
 import MapWrapper from '../GoogleMap/mapWrapper'
-import MapWithADirectionsRenderer from '../GoogleMap/Direction'
 
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
@@ -57,7 +56,7 @@ function CreateParty() {
 
     </Tab>
     <Tab eventKey="direction" title="Direction">
-    <MapWithADirectionsRenderer/>
+    <MapWrapper/>
 
     </Tab>
     <Tab eventKey="weather" title="Weather">
