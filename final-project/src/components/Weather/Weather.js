@@ -33,6 +33,9 @@ const Weather = () => {
   const Wrapper = styled.div`
     background-image: url(${(props) => props.background});
     background-size: cover;
+    -webkit-text-fill-color: ${(props) => props.inputColor || "white"};
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
   `
   const Wrapper2 = styled.div`
     background: transparent;
@@ -70,12 +73,26 @@ const Weather = () => {
               ? rainImage
               : apiData.weather[0].main === "Thunder"
               ? thunderImage
-              : apiData.weather[0].main === "Sunny"
+              : apiData.weather[0].main === "Sunny" ||
+                apiData.weather[0].main === "Clear"
               ? sunnyImage
               : apiData.weather[0].main === "Snow"
               ? snowImage
               : cloudImage
             : cloudImage
+        }
+        inputColor={
+          apiData.weather !== undefined
+            ? apiData.weather[0].main === "Rain"
+              ? "yellow"
+              : apiData.weather[0].main === "Thunder"
+              ? "white"
+              : apiData.weather[0].main === "Sunny"
+              ? "black"
+              : apiData.weather[0].main === "Snow"
+              ? "black"
+              : "white"
+            : "white"
         }
       >
         <header className="d-flex justify-content-center align-items-center">
@@ -102,7 +119,14 @@ const Weather = () => {
             </button>
           </div>
           <Wrapper2>
-            <div className="card mt-3 mx-auto" style={{ width: "60vw" }}>
+            <div
+              className="card mt-3 mx-auto"
+              style={{
+                background: "transparent",
+                width: "60vw",
+                border: "transparent",
+              }}
+            >
               {apiData.main ? (
                 <div class="card-body text-center">
                   <img
