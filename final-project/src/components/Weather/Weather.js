@@ -164,10 +164,10 @@ const Weather = () => {
                     <div className="col-md-6">
                       <p>
                         {" "}
-                        <strong>{apiData.weather[0].main}</strong>
+                        <strong>LOW</strong>
                       </p>
                       <p>
-                        <strong> USA</strong>
+                        <strong> HIGH </strong>
                       </p>
                     </div>
                   </div>
