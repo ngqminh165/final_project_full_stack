@@ -7,6 +7,17 @@ import sunnyImage from "./assets/sunny.jpg"
 import rainImage from "./assets/rain.jpg"
 import snowImage from "./assets/snow.jpg"
 
+const Wrapper = styled.div`
+  background-image: url(${(props) => props.background});
+  background-size: cover;
+  -webkit-text-fill-color: ${(props) => props.inputColor || "white"};
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+`
+const Wrapper2 = styled.div`
+  background: transparent;
+`
+
 const Weather = () => {
   // State
   const [apiData, setApiData] = useState({})
@@ -30,16 +41,7 @@ const Weather = () => {
   const submitHandler = () => {
     setState(getState)
   }
-  const Wrapper = styled.div`
-    background-image: url(${(props) => props.background});
-    background-size: cover;
-    -webkit-text-fill-color: ${(props) => props.inputColor || "white"};
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-  `
-  const Wrapper2 = styled.div`
-    background: transparent;
-  `
+
   /*
   const bimage =
     apiData.weather[0].main === "Thunderstorm"
@@ -96,7 +98,7 @@ const Weather = () => {
         }
       >
         <header className="d-flex justify-content-center align-items-center">
-          <h2>React Weather App</h2>
+          <h2>Today's Weather</h2>
         </header>
         <div className="container">
           <div className="mt-3 d-flex flex-column justify-content-center align-items-center">
