@@ -1,6 +1,5 @@
-import React, { useState } from "react"
-import "./Weather.css"
-/*
+import React, { useState, useEffect } from "react"
+//import "./Weather.css"
 import styled from "styled-components"
 import cloudImage from "./assets/cloudy.jpg"
 import thunderImage from "./assets/thunder.jpg"
@@ -32,9 +31,13 @@ const Weather = () => {
     setState(getState)
   }
   const Wrapper = styled.div`
-    background-image: url(${sunnyImage});
+    background-image: url(${(props) => props.background});
+    background-size: cover;
   `
-  
+  const Wrapper2 = styled.div`
+    background: transparent;
+  `
+  /*
   const bimage =
     apiData.weather[0].main === "Thunderstorm"
       ? thunderImage
@@ -45,13 +48,36 @@ const Weather = () => {
       : apiData.weather[0].main === "Snow"
       ? snowImage
       : sunnyImage
-  
+  */
   const kelvinToFarenheit = (k) => {
     return ((9 / 5) * (k - 273) + 32).toFixed(2)
   }
+  /*
+  className={
+    typeof weather.weather != "undefined"
+      ? weather.weather[0].main === "Rain"
+        ? "app rain"
+        : "app"
+      : "app"
+  }
+  */
   return (
     <div className="App">
-      <Wrapper>
+      <Wrapper
+        background={
+          apiData.weather != undefined
+            ? apiData.weather[0].main === "Rain"
+              ? rainImage
+              : apiData.weather[0].main === "Thunder"
+              ? thunderImage
+              : apiData.weather[0].main === "Sunny"
+              ? sunnyImage
+              : apiData.weather[0].main === "Snow"
+              ? snowImage
+              : cloudImage
+            : cloudImage
+        }
+      >
         <header className="d-flex justify-content-center align-items-center">
           <h2>React Weather App</h2>
         </header>
@@ -75,55 +101,56 @@ const Weather = () => {
               Search
             </button>
           </div>
+          <Wrapper2>
+            <div className="card mt-3 mx-auto" style={{ width: "60vw" }}>
+              {apiData.main ? (
+                <div class="card-body text-center">
+                  <img
+                    src={`http://openweathermap.org/img/w/${apiData.weather[0].icon}.png`}
+                    alt="weather status icon"
+                    className="weather-icon"
+                  />
 
-          <div className="card mt-3 mx-auto" style={{ width: "60vw" }}>
-            {apiData.main ? (
-              <div class="card-body text-center">
-                <img
-                  src={`http://openweathermap.org/img/w/${apiData.weather[0].icon}.png`}
-                  alt="weather status icon"
-                  className="weather-icon"
-                />
+                  <p className="h2">
+                    {kelvinToFarenheit(apiData.main.temp)}&deg; F
+                  </p>
 
-                <p className="h2">
-                  {kelvinToFarenheit(apiData.main.temp)}&deg; F
-                </p>
+                  <p className="h5">
+                    <i className="fas fa-map-marker-alt"></i>{" "}
+                    <strong>{apiData.name}</strong>
+                  </p>
 
-                <p className="h5">
-                  <i className="fas fa-map-marker-alt"></i>{" "}
-                  <strong>{apiData.name}</strong>
-                </p>
-
-                <div className="row mt-4">
-                  <div className="col-md-6">
-                    <p>
-                      <i class="fas fa-temperature-low "></i>{" "}
-                      <strong>
-                        {kelvinToFarenheit(apiData.main.temp_min)}&deg; F
-                      </strong>
-                    </p>
-                    <p>
-                      <i className="fas fa-temperature-high"></i>{" "}
-                      <strong>
-                        {kelvinToFarenheit(apiData.main.temp_max)}&deg; F
-                      </strong>
-                    </p>
-                  </div>
-                  <div className="col-md-6">
-                    <p>
-                      {" "}
-                      <strong>{apiData.weather[0].main}</strong>
-                    </p>
-                    <p>
-                      <strong> USA</strong>
-                    </p>
+                  <div className="row mt-4">
+                    <div className="col-md-6">
+                      <p>
+                        <i class="fas fa-temperature-low "></i>{" "}
+                        <strong>
+                          {kelvinToFarenheit(apiData.main.temp_min)}&deg; F
+                        </strong>
+                      </p>
+                      <p>
+                        <i className="fas fa-temperature-high"></i>{" "}
+                        <strong>
+                          {kelvinToFarenheit(apiData.main.temp_max)}&deg; F
+                        </strong>
+                      </p>
+                    </div>
+                    <div className="col-md-6">
+                      <p>
+                        {" "}
+                        <strong>{apiData.weather[0].main}</strong>
+                      </p>
+                      <p>
+                        <strong> USA</strong>
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <h1>Loading</h1>
-            )}
-          </div>
+              ) : (
+                <h1>Loading</h1>
+              )}
+            </div>
+          </Wrapper2>
         </div>
       </Wrapper>
     </div>
@@ -131,7 +158,7 @@ const Weather = () => {
 }
 
 export default Weather
-*/
+/*
 
 const Weather = () => {
   const api = {
@@ -225,3 +252,4 @@ const Weather = () => {
   )
 }
 export default Weather
+*/
