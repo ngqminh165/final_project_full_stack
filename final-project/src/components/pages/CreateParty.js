@@ -3,9 +3,10 @@ import Container from 'react-bootstrap/Container'
 import CovidChart from '../Chartjs/Chart'
 import Weather from '../Weather/Weather'
 import MapWrapper from '../GoogleMap/mapWrapper'
-
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
+
+
 
 function CreateParty() {
   return (
