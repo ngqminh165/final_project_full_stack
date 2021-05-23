@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import PartyCard from "./components/Party/PartyCard"
 import PartyContainer from "./components/Party/PartyContainer"
 import CreateParty from "./components/pages/CreateParty"
-import GlobalFonts from "./fonts/fonts"
+
 
 function App() {
   return (
