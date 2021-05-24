@@ -1,3 +1,6 @@
+
+
+
 import Form from "react-bootstrap/Form"
 import Container from "react-bootstrap/Container"
 import CovidChart from "../Chartjs/Chart"
@@ -8,8 +11,7 @@ import Col from "react-bootstrap/Col"
 //import backg from "./images/CellaborateDefaultImage.jpg"
 import styled from "styled-components"
 
-import Tab from "react-bootstrap/Tab"
-import Tabs from "react-bootstrap/Tabs"
+
 
 const Wrapper = styled.div`
   font-family: "Roboto";
@@ -21,6 +23,8 @@ const Wrapper = styled.div`
 
 function CreateParty() {
   return (
+
+
     <Container fluid className="mt-3" variant="dark" bg="dark">
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="home" title="Home">
@@ -118,8 +122,10 @@ function CreateParty() {
           <Weather zipcode="97266" />
         </Tab>
       </Tabs>
+
     </Container>
-  )
+
+  );
 }
 
-export default CreateParty
+export default CreateParty;
