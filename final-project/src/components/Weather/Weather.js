@@ -71,7 +71,7 @@ const Weather = () => {
     <div className="App">
       <Wrapper
         background={
-          apiData.weather != undefined
+          apiData.weather !== undefined
             ? apiData.weather[0].main === "Rain"
               ? rainImage
               : apiData.weather[0].main === "Thunder"
