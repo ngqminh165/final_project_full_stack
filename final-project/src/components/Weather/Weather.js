@@ -7,6 +7,17 @@ import sunnyImage from "./assets/sunny.jpg"
 import rainImage from "./assets/rain.jpg"
 import snowImage from "./assets/snow.jpg"
 
+const Wrapper = styled.div`
+  background-image: url(${(props) => props.background});
+  background-size: cover;
+  -webkit-text-fill-color: ${(props) => props.inputColor || "white"};
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+`
+const Wrapper2 = styled.div`
+  background: transparent;
+`
+
 const Weather = () => {
   // State
   const [apiData, setApiData] = useState({})
@@ -30,13 +41,7 @@ const Weather = () => {
   const submitHandler = () => {
     setState(getState)
   }
-  const Wrapper = styled.div`
-    background-image: url(${(props) => props.background});
-    background-size: cover;
-  `
-  const Wrapper2 = styled.div`
-    background: transparent;
-  `
+
   /*
   const bimage =
     apiData.weather[0].main === "Thunderstorm"
@@ -61,6 +66,7 @@ const Weather = () => {
       : "app"
   }
   */
+
   return (
     <div className="App">
       <Wrapper
@@ -70,16 +76,30 @@ const Weather = () => {
               ? rainImage
               : apiData.weather[0].main === "Thunder"
               ? thunderImage
-              : apiData.weather[0].main === "Sunny"
+              : apiData.weather[0].main === "Sunny" ||
+                apiData.weather[0].main === "Clear"
               ? sunnyImage
               : apiData.weather[0].main === "Snow"
               ? snowImage
               : cloudImage
             : cloudImage
         }
+        inputColor={
+          apiData.weather !== undefined
+            ? apiData.weather[0].main === "Rain"
+              ? "yellow"
+              : apiData.weather[0].main === "Thunder"
+              ? "white"
+              : apiData.weather[0].main === "Sunny"
+              ? "black"
+              : apiData.weather[0].main === "Snow"
+              ? "black"
+              : "white"
+            : "white"
+        }
       >
         <header className="d-flex justify-content-center align-items-center">
-          <h2>React Weather App</h2>
+          <h2>Today's Weather</h2>
         </header>
         <div className="container">
           <div className="mt-3 d-flex flex-column justify-content-center align-items-center">
@@ -102,7 +122,14 @@ const Weather = () => {
             </button>
           </div>
           <Wrapper2>
-            <div className="card mt-3 mx-auto" style={{ width: "60vw" }}>
+            <div
+              className="card mt-3 mx-auto"
+              style={{
+                background: "transparent",
+                width: "60vw",
+                border: "transparent",
+              }}
+            >
               {apiData.main ? (
                 <div class="card-body text-center">
                   <img
@@ -138,10 +165,10 @@ const Weather = () => {
                     <div className="col-md-6">
                       <p>
                         {" "}
-                        <strong>{apiData.weather[0].main}</strong>
+                        <strong>LOW</strong>
                       </p>
                       <p>
-                        <strong> USA</strong>
+                        <strong> HIGH </strong>
                       </p>
                     </div>
                   </div>
