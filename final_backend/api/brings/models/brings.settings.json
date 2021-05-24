@@ -1,0 +1,15 @@
+{
+  "kind": "singleType",
+  "collectionName": "brings",
+  "info": {
+    "name": "Brings",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

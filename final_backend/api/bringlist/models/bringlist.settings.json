@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bringlists",
+  "info": {
+    "name": "Bringlist"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "item": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "qty": {
+      "type": "integer"
+    }
+  }
+}

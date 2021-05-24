@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/brings",
+      "handler": "brings.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/brings",
+      "handler": "brings.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/brings",
+      "handler": "brings.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

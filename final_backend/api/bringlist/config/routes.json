@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/bringlists",
+      "handler": "bringlist.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/bringlists/count",
+      "handler": "bringlist.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/bringlists/:id",
+      "handler": "bringlist.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/bringlists",
+      "handler": "bringlist.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/bringlists/:id",
+      "handler": "bringlist.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/bringlists/:id",
+      "handler": "bringlist.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

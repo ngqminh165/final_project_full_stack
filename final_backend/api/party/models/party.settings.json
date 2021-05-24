@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parties",
+  "info": {
+    "name": "Party",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "party_title": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string"
+    },
+    "Zipcode": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "Celebrate_date": {
+      "type": "datetime"
+    },
+    "host": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "invited"
+    },
+    "invitedList": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "parties",
+      "dominant": true
+    }
+  }
+}
