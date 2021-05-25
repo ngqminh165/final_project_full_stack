@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import PartyCard from "./components/Party/PartyCard"
 import PartyContainer from "./components/Party/PartyContainer"
 import CreateParty from "./components/pages/CreateParty"
+import LoginForm from "./Login.js"
+import CreateForm from "./CreatePage.js"
 
 
 function App() {
@@ -21,8 +23,13 @@ function App() {
             <PartyContainer />
           </div>
         </Route>
+        <Route path="/login" exact>
+        {/* <Login Page /> */}
+          <LoginForm />
+        </Route>
         <Route path="/create" exact>
-          <CreateParty />
+        {/* <Create Page /> */}
+          <CreateForm />
         </Route>
       </Switch>
     </Router>

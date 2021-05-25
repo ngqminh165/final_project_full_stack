@@ -33,7 +33,7 @@ module.exports = {
     }
   },
 
-  find: async (ctx) => {
+  /*find: async (ctx) => {
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
       try {
         const { id: id_party, isAdmin = false } = await strapi.plugins[
@@ -58,6 +58,6 @@ module.exports = {
         //return handleErrors(ctx, err, "unauthorized");
       }
     }
-  },
+  },*/
 
 };

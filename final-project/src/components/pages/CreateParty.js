@@ -10,8 +10,8 @@ import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 //import backg from "./images/CellaborateDefaultImage.jpg"
 import styled from "styled-components"
-
-
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 const Wrapper = styled.div`
   font-family: "Roboto";
