@@ -64,6 +64,14 @@ html{
   border-radius: 25px;
 }
 
+#createform{
+  background-color: #FFFFFF;
+  width: 90%;
+  height: 100%;
+  margin: 100px auto;
+  border-radius: 50px;
+}
+
 #headerTitle{
   text-align: center;
   font-family: 'open sans', sans-serif;

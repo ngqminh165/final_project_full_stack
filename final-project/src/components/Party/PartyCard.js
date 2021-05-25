@@ -73,21 +73,21 @@ state = {
   // Fetch your restaurants immediately after the component is mounted
   componentDidMount = async () => {
 
-  const jwt = localStorage.getItem('JWT')
+  /*const jwt = localStorage.getItem('JWT')
   const { data } = await axios.get('http://localhost:1337/parties', {
     headers: {
       Authorization:
         'Bearer' + {jwt},
     },
-  });
-    /*
+  });*/
+    
     try {
       const response = await axios.get('http://localhost:1337/parties');
       this.setState({ restaurants: response.data });
       console.log(response.data)
     } catch (error) {
       this.setState({ error });
-    }*/
+    }
   };
 
   render() {
@@ -104,7 +104,8 @@ state = {
           {this.state.restaurants.map(restaurant => (
             <Wrapper>
             <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode="" />
+                <PartyHeader zipcode=""/>
+                 
                 <div className="party-title party-highlight__card-title">
                     <p>{restaurant.party_title}</p>
                 </div>
