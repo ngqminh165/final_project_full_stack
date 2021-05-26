@@ -8,7 +8,7 @@ import PartyContainer from "./components/Party/PartyContainer"
 import CreateParty from "./components/pages/CreateParty"
 import LoginForm from "./Login.js"
 import CreateForm from "./CreatePage.js"
-
+import SignInSide from "./components/Login/SignIn"
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         </Route>
         <Route path="/login" exact>
         {/* <Login Page /> */}
-          <LoginForm />
+          <SignInSide />
         </Route>
         <Route path="/create" exact>
         {/* <Create Page /> */}

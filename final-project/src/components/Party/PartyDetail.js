@@ -3,7 +3,6 @@ import React from 'react'
 import PartyHeader from './PartyHeader'
 import styled from 'styled-components'
 //import PartyFooter from '../partyFooter';
-import axios from 'axios';
 
 const Wrapper = styled.div`
     .party-highlight__card {
@@ -63,76 +62,7 @@ const Wrapper = styled.div`
         }
     }
 `;
-
-class PartyInfo extends React.Component {
-state = {
-    restaurants: [],
-    error: null,
-  };
-
-  // Fetch your restaurants immediately after the component is mounted
-  componentDidMount = async () => {
-
-  /*const jwt = localStorage.getItem('JWT')
-  const { data } = await axios.get('http://localhost:1337/parties', {
-    headers: {
-      Authorization:
-        'Bearer' + {jwt},
-    },
-  });*/
-    
-    try {
-      const response = await axios.get('http://localhost:1337/parties');
-      this.setState({ restaurants: response.data });
-      console.log(response.data)
-    } catch (error) {
-      this.setState({ error });
-    }
-  };
-
-  render() {
-    const { error, restaurant } = this.state;
-
-    // Print errors if any
-    if (error) {
-      return <div>An error occured: {error.message}</div>;
-    }
-
-    return (
-      <div className="App">
-        <ul>
-          {this.state.restaurants.map(restaurant => (
-            <Wrapper>
-            <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode=""/>
-                 
-                <div className="party-title party-highlight__card-title">
-                    <p>{restaurant.party_title}</p>
-                </div>
-                <div className="party-highlight__card-location">
-                    <p>{restaurant.Address}</p>
-                </div>
-                <div className="party-highlight__card-description d-md-block">
-                    {restaurant.Description}
-
-                </div>
-
-            </div>
-        </Wrapper>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
-}
-
-export default PartyInfo
-
-
-
-
-/*const PartyCard = props => {
+const PartyDetail = props => {
     return (
         <Wrapper>
             <div className="party-highlight__card p-0 m-2">
@@ -140,8 +70,20 @@ export default PartyInfo
                 <div className="party-title party-highlight__card-title">
                     <p>Hang out with Us</p>
                 </div>
-                <div className="party-highlight__card-location">
+                <div className="party-highlight__card-  location">
                     2207 NE 131 St Ave Portland OR
+                </div>
+                <div className="party-highlight__card-description d-md-block">
+                    {props.description}
+
+                </div>
+                <div className="party-highlight__card-description d-md-block">
+                    {props.description}
+
+                </div>
+                <div className="party-highlight__card-description d-md-block">
+                    {props.description}
+
                 </div>
                 <div className="party-highlight__card-description d-md-block">
                     {props.description}
@@ -150,4 +92,5 @@ export default PartyInfo
         </Wrapper>
     )
 }
-export default PartyCard*/
+
+export default PartyDetail
