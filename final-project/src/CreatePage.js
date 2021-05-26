@@ -32,11 +32,11 @@ export default function CreateForm({setToken}) {
             <FormInput description="Party Title" placeholder="Enter party title" type="text" required /*onChange={e => setUserName(e.target.value)}*//>
             <FormInput description="Address" placeholder="Enter the address" type="address" required/>
             <FormInput description="Zipcode" placeholder="Enter the zipcode" type="zipcode" required/>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"  placeholder="Enter description"></textarea>
-            </div>
-            
+            <Form.Group controlId="exampleForm.ControlTextarea1" id="form-control" placeholder="Enter the description" type="description">
+              <Form.Label id="title_description">Description</Form.Label>
+              <Form.Control id="form-control1" as="textarea" placeholder="Enter the Description" rows={5} />
+            </Form.Group>
+
             <FormButton title="Create Party" type="submit"/>
         </div>
         {/* <OtherMethods /> */}
