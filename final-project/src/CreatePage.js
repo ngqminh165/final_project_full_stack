@@ -29,9 +29,14 @@ export default function CreateForm({setToken}) {
         <FormHeader title="Create Party" />
         <div>
             
-            <FormInput description="Party Title" placeholder="Enter party title" type="text"  /*onChange={e => setUserName(e.target.value)}*//>
-            <FormInput description="Host" placeholder="Enter the host name" type="text" /*onChange={e => setPassword(e.target.value)}*//>
-            <FormInput description="Address" placeholder="Enter the address" type="address"/>
+            <FormInput description="Party Title" placeholder="Enter party title" type="text" required /*onChange={e => setUserName(e.target.value)}*//>
+            <FormInput description="Address" placeholder="Enter the address" type="address" required/>
+            <FormInput description="Zipcode" placeholder="Enter the zipcode" type="zipcode" required/>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"  placeholder="Enter description"></textarea>
+            </div>
+            
             <FormButton title="Create Party" type="submit"/>
         </div>
         {/* <OtherMethods /> */}

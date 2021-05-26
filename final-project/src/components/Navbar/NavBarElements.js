@@ -19,6 +19,7 @@ function NavBarElements() {
         style={navbar}
         variant="dark"
         bg="dark"
+        
       >
         <Navbar.Brand href="/">CELLABORATE</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

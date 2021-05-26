@@ -82,7 +82,7 @@ state = {
   });*/
     
     try {
-      const response = await axios.get('http://localhost:1337/parties');
+      const response = await axios.get('http://localhost:1337/party_information');
       this.setState({ restaurants: response.data });
       console.log(response.data)
     } catch (error) {
