@@ -62,7 +62,7 @@ console.log(data)
 const CovidChart = props => (
   <>
     <div className='header'>
-      <h1 className='title'>Covid Chart</h1>
+      <h3 className='title'></h3>
     </div>
     <PolarArea data={data} />
   </>
