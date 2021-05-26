@@ -9,6 +9,7 @@ import CreateParty from "./components/pages/CreateParty"
 import LoginForm from "./components/Login/Login.js"
 import CreateForm from "./CreatePage.js"
 import SignInSide from "./components/Login/SignIn"
+import SignUp from "./components/Login/SignUp"
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
         <Route path="/create" exact>
         {/* <Create Page /> */}
           <CreateForm />
+        </Route>
+        <Route path="/signup" exact>
+        {/* <Create Page /> */}
+          <SignUp />
         </Route>
       </Switch>
     </Router>
