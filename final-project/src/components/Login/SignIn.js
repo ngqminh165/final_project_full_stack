@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from "react"
+import axios from 'axios';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,9 +11,12 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -59,7 +64,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [showError, setShowError] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const history = useHistory();
 
+  const handleSubmit = async e => {
+      //console.log(localStorage.getItem('JWT'));
+      console.log("email: " + email)
+      console.log("password: " + password)
+
+      e.preventDefault();
+      setShowSuccess(false)
+      setShowError(false)
+
+      axios.post( 'http://localhost:1337/auth/local', {
+        "identifier": email,
+        "password": password
+      })
+      .then(response => {
+        console.log(response)
+        setShowSuccess(true)
+        localStorage.setItem('JWT', response.data.jwt);
+        history.push("/");
+
+      })
+      .catch(error => {
+        setShowError(true)
+      });
+    }
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -72,7 +107,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -81,6 +116,8 @@ export default function SignInSide() {
               id="email"
               label="Email Address"
               name="email"
+              value={email}
+              onInput={ e=>setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -93,18 +130,32 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onInput={ e=>setPassword(e.target.value)}
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <Grid container>
+              <Grid item xs>
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                    />
+              </Grid>
+              <Grid item>
+              { showSuccess ? <Alert severity="success" id="success_alert">Login Successfully!</Alert>: null}
+              { showError ? <Alert severity="error" id="error_alert">Authenticated Error. Please Try Again!</Alert>: null}
+
+
+              </Grid>
+            </Grid>
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              
             >
               Sign In
             </Button>
@@ -123,6 +174,7 @@ export default function SignInSide() {
             <Box mt={5}>
               <Copyright />
             </Box>
+
           </form>
         </div>
       </Grid>
