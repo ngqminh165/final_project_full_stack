@@ -40,6 +40,9 @@ function NavBarElements() {
               <NavDropdown.Item href="/login">
                 Login
               </NavDropdown.Item>
+              <NavDropdown.Item href="/signout">
+                Sign Out
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

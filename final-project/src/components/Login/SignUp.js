@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {useState} from "react"
+import { useHistory } from "react-router-dom";
+import axios from 'axios';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -59,7 +62,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [username, setUsername] = useState();
+  const [showError, setShowError] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const history = useHistory();
 
+  const handleSubmit = async e => {
+      //console.log(localStorage.getItem('JWT'));
+      console.log("email: " + email)
+      console.log("password: " + password)
+      console.log("password: " + password)
+
+      e.preventDefault();
+      setShowSuccess(false)
+      setShowError(false)
+
+      axios.post( 'http://localhost:1337/auth/local/register', {
+        "username": username,
+        "email": email,
+        "password": password,
+        "confirmed": false,
+        "blocked": false
+      })
+      .then(response => {
+        console.log(response)
+        setShowSuccess(true)
+        localStorage.setItem('JWT', response.data.jwt);
+        history.push("/");
+
+      })
+      .catch(error => {
+        setShowError(true)
+      });
+    }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -72,26 +109,18 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit}>
 
           <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="first_name"
-              label="First Name"
-              name="first_name"
-              autoFocus
-            />
-          <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="last_name"
-              label="Last Name"
-              name="last_name"
+              id="username"
+              label="Username"
+              name="username"
+              value={username}
+              onInput={ e=>setUsername(e.target.value)}
               autoFocus
             />
 
@@ -104,6 +133,8 @@ export default function SignUp() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              value={email}
+              onInput={ e=>setEmail(e.target.value)}
               autoFocus
             />
             <TextField
@@ -115,6 +146,8 @@ export default function SignUp() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onInput={ e=>setPassword(e.target.value)}
               autoComplete="current-password"
             />
             <Button
