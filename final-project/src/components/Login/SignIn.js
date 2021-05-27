@@ -72,6 +72,9 @@ export default function SignInSide() {
 
   const handleSubmit = async e => {
       //console.log(localStorage.getItem('JWT'));
+      var user_info = localStorage.getItem('user')
+      user_info ? console.log(user_info) : console.log("NO DATA");
+      
       console.log("email: " + email)
       console.log("password: " + password)
 
@@ -87,6 +90,8 @@ export default function SignInSide() {
         console.log(response)
         setShowSuccess(true)
         localStorage.setItem('JWT', response.data.jwt);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+
         history.push("/");
 
       })
