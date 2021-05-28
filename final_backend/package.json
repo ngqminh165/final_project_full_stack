@@ -11,9 +11,13 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "documentation": "^13.2.5",
     "jwt-decode": "^3.1.2",
     "knex": "0.21.18",
+    "react-material-ui-carousel": "^2.2.6",
     "sqlite3": "5.0.0",
     "strapi": "3.6.2",
     "strapi-admin": "3.6.2",

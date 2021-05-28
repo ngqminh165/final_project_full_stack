@@ -7,7 +7,7 @@ const jwt_decode = require("jwt-decode");
  */
 
 module.exports = {
-  findOne: async (ctx) => {
+  /*findOne: async (ctx) => {
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
       try {
         const { id: id_party, isAdmin = false } = await strapi.plugins[
@@ -31,7 +31,7 @@ module.exports = {
         return handleErrors(ctx, err, "unauthorized");
       }
     }
-  },
+  },*/
 
   /*find: async (ctx) => {
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {

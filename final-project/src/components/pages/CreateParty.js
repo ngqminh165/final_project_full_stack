@@ -1,7 +1,7 @@
 
 
 
-import Form from "react-bootstrap/Form"
+/*import Form from "react-bootstrap/Form"
 import Container from "react-bootstrap/Container"
 import CovidChart from "../Chartjs/Chart"
 import Weather from "../Weather/Weather"
@@ -128,4 +128,4 @@ function CreateParty() {
   );
 }
 
-export default CreateParty;
+export default CreateParty;*/

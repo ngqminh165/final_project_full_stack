@@ -1,93 +1,3 @@
-/*import React, {useState} from "react"
-import "./App.css"
-import axios from 'axios';
-import Form from 'react-bootstrap/Form'
-
-export default function CreateForm({setToken}) {
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
-
-    /*const handleSubmit = async e => {
-        console.log(localStorage.getItem('JWT'));
-
-        e.preventDefault();
-        console.log(username);
-        const token = await axios.post( 'http://localhost:1337/auth/local', {
-            "identifier": username,
-            "password": password
-        });
-        localStorage.setItem('JWT', token.data.jwt);
-        console.log(token)
-      }
-    
-    const handleUsername = () => {
-        console.log("haha")
-    }
-    return(
-    <Form noValidate onSubmit={handleSubmit}>
-      <div id="createform">
-        <FormHeader title="Create Party" />
-        <div>
-            
-            <FormInput description="Party Title" placeholder="Enter party title" type="text" required onChange={e => setUserName(e.target.value)}/>
-            <FormInput description="Address" placeholder="Enter the address" type="address" required/>
-            <FormInput description="Zipcode" placeholder="Enter the zipcode" type="zipcode" required/>
-            <Form.Group controlId="exampleForm.ControlTextarea1" id="form-control" placeholder="Enter the description" type="description">
-              <Form.Label id="title_description">Description</Form.Label>
-              <Form.Control id="form-control1" as="textarea" placeholder="Enter the Description" rows={5} />
-            </Form.Group>
-
-            <FormButton title="Create Party" type="submit"/>
-        </div>
-        { <OtherMethods /> }
-      </div>
-      </Form>
-    )
-
-};
-
-const FormHeader = props => (
-    <h2 id="headerTitle">{props.title}</h2>
-);
-
-
-const FormButton = props => (
-  <div id="button" class="row">
-    <button>{props.title}</button>
-  </div>
-);
-
-const FormInput = props => (
-  <div class="row">
-    <label>{props.description}</label>
-    <input type={props.type} placeholder={props.placeholder} onChange={props.onChange}/>
-  </div>  
-);
-
-const OtherMethods = props => (
-  <div id="alternativeLogin">
-    <label>Or sign in with:</label>
-    <div id="iconGroup">
-      <Facebook />
-      <Twitter />
-      <Google />
-    </div>
-  </div>
-);
-
-const Facebook = props => (
-  <a href="#" id="facebookIcon"></a>
-);
-
-const Twitter = props => (
-  <a href="#" id="twitterIcon"></a>
-);
-
-const Google = props => (
-  <a href="#" id="googleIcon"></a>
-);*/
-
-
 import React, {useState} from "react"
 import axios from 'axios';
 
@@ -115,6 +25,8 @@ import { useHistory } from "react-router-dom";
 import { any, string } from "prop-types";
 import { TextareaAutosize } from "@material-ui/core";
 import DescriptionIcon from '@material-ui/icons/Description';
+import Carousel from 'react-material-ui-carousel'
+
 
 function HomeIcon(props) {
     return (
@@ -137,18 +49,26 @@ function Copyright() {
   );
 }
 
+const section = {
+  height: "100%",
+  backgroundImage: 'cover'
+};
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
   image: {
+   
     backgroundImage: 'url(https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundPosition: 'left',
   },
+  
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
@@ -169,44 +89,90 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
+
 export default function SignInSide() {
   const classes = useStyles();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [party_title, setParty] = useState();
+  const [Address, setAddress] = useState();
+  const [Zipcode, setZip] = useState();
+  const [Description, setDes] = useState();
+  const [Celebrate_date, setCele] = useState();
+  //const [ID, setID] = useState();
+  const [Time, setTime] = useState();
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const history = useHistory();
 
   const handleSubmit = async e => {
-      //console.log(localStorage.getItem('JWT'));
-      console.log("email: " + email)
-      console.log("password: " + password)
+      console.log(localStorage.getItem('JWT'));
+      console.log("party_title: " + party_title);
+      console.log("Address: " + Address);
+      console.log("Zipcode: " + Zipcode);
+      console.log("Description: " + Description);
+      console.log("Celebrate: " + Celebrate_date);
+      var user_info = localStorage.getItem('user')
+      //user_info ? console.log(user_info) : console.log("NO DATA");
+      user_info=JSON.parse(user_info)
+      console.log("ID: " + user_info.id);
+      console.log("Time: " + Time);
+
+      console.log(Celebrate_date + " " + Time);
+
+      var timeParts = Time.split(':');
+      var dateParts = Celebrate_date.split('-'),
+      date;
+
+      date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1]);
+
+      var timestamp = date.getTime();
+      console.log(timestamp); //1379426880000
+      console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
 
       e.preventDefault();
       setShowSuccess(false)
       setShowError(false)
 
-      axios.post( 'http://localhost:1337/auth/local', {
-        "identifier": email,
-        "password": password
-      })
-      .then(response => {
-        console.log(response)
-        setShowSuccess(true)
-        localStorage.setItem('JWT', response.data.jwt);
-        history.push("/");
+      var axios = require('axios');
+      var data = JSON.stringify({
+        "party_title": party_title,
+        "Address": Address,
+        "Zipcode": Zipcode,
+        "Description": Description,
+        "Celebrate_date": timestamp,
+        "host": {
+            "id": user_info.id
+        }
+    });
 
-      })
-      .catch(error => {
-        setShowError(true)
-      });
+        var config = {
+        method: 'post',
+        url: 'http://localhost:1337/parties',
+        headers: { 
+            'Authorization': 'Bearer ' + localStorage.getItem('JWT'), 
+            'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setShowSuccess(true)
+
+          history.push("/partydetail")
+        })
+
+        .catch(function (error) {
+          console.log(error);
+          setShowError(true)
+        });
     }
   
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      {/* <Grid item xs={false} sm={4} md={7}  className={classes.image} /> */}
-      <Grid item xs={12} sm={12} md={12} lg={12} xlg={12} component={Paper} elevation={6} square>
+      
+      <Grid item xs={12} sm={8} md={5}  component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <AddToQueueIcon></AddToQueueIcon>
@@ -230,8 +196,11 @@ export default function SignInSide() {
               id="title"
               label="Enter Party Title"
               name="title"
-              autoComplete="current-title"
+                
               autoFocus
+              value={party_title}
+              onInput={ e=>setParty(e.target.value)}
+              autoComplete="current-title"
             />
              <TextField
              InputProps={{
@@ -249,6 +218,8 @@ export default function SignInSide() {
               label="Enter The Address"
               type="address"
               id="address"
+              value={Address}
+              onInput={ e=>setAddress(e.target.value)}
               autoComplete="current-address"
             />
             <TextField
@@ -267,6 +238,8 @@ export default function SignInSide() {
               label="Enter Zipcode"
               type="zipcode"
               id="zipcode"
+              value={Zipcode}
+              onInput={ e=>setZip(e.target.value)}
               autoComplete="current-zip"
             />
             <TextField
@@ -286,6 +259,8 @@ export default function SignInSide() {
               label="Enter Description"
               type="description"
               id="description"
+              value={Description}
+              onInput={ e=>setDes(e.target.value)}
               autoComplete="current-description"
               multiline
               rows={4}
@@ -310,6 +285,8 @@ export default function SignInSide() {
                 label="Enter date"
                 type="date"
                 id="date"
+                value={Celebrate_date}
+                onInput={e=>setCele(e.target.value)}
                 autoComplete="current-date"
               
                 />
@@ -332,6 +309,8 @@ export default function SignInSide() {
                 label="Enter time"
                 type="time"
                 id="time"
+                value={Time}
+                onInput={e=>setTime(e.target.value)}
                 autoComplete="current-time"
             
                 />
@@ -357,6 +336,23 @@ export default function SignInSide() {
           </form>
         </div>
       </Grid>
+      <Grid item xs={null} sm={null} md={null} component={Paper}>
+      <Carousel
+              autoPlay
+              infiniteLoop
+              showThumbs={false}
+              xs={false}> 
+              
+                <img alt="banner4" src="https://orlandoweeklytickets.com/imager/b/original/109989646/a72a/NJA_7395.jpg"/>
+              
+              
+                <img alt="banner4" src="https://www.incimages.com/uploaded_files/image/1920x1080/getty_614867390_321301.jpg" width='800' height='800'/>     
+          
+      </Carousel>
+      </Grid>
+              
+            
+          
     </Grid>
   );
 }

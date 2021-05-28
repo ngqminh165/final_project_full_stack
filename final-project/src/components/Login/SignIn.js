@@ -92,7 +92,7 @@ export default function SignInSide() {
         localStorage.setItem('JWT', response.data.jwt);
         localStorage.setItem('user', JSON.stringify(response.data.user));
 
-        history.push("/");
+        history.push("/http://localhost:3000/partydetail");
 
       })
       .catch(error => {
