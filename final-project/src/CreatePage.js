@@ -336,7 +336,7 @@ export default function SignInSide() {
           </form>
         </div>
       </Grid>
-      <Grid item xs={null} sm={null} md={null} component={Paper}>
+      <Grid item xs={null} sm={8} md={7} component={Paper}>
       <Carousel
               autoPlay
               infiniteLoop
