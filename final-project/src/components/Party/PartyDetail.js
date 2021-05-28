@@ -30,6 +30,7 @@ import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import Avatar from '@material-ui/core/Avatar';
 import yellow from "@material-ui/core/colors/yellow";
 
+
 import { blueGrey, grey, lightBlue, lightGreen} from "@material-ui/core/colors";
 import { dark, light } from "@material-ui/core/styles/createPalette";
 
@@ -115,6 +116,13 @@ export default function SimpleTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [email, setEmail] = useState();
+  const [title, setTitle] = useState();
+  const [address, setLocation] = useState();
+  const [time, setTime] = useState();
+  const [description, setDescription] = useState();
+  const [invited, setInvited] = useState();
+  const [name, setName] = useState();
+  const [initial, setInitial] = useState();
   const [password, setPassword] = useState();
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
@@ -152,6 +160,76 @@ export default function SimpleTabs() {
         setShowError(true)
       });
     }
+
+  var axios = require('axios');
+  var data = JSON.stringify({
+    "party_title": "Thanh's birthday",
+    "Address": "11234 SE Division",
+    "Zip_zode": "97220",
+    "Description": "This weekend, we will CELLABORATE at Cody's House. \n Coming and Join with US. Summer is Coming.\n Do not forget to bring your food. I have beer a lot!!!",
+    "Celebrate_date": "2021-05-29T19:00:00.000Z",
+    "host": {
+      "id": 2
+    }
+  });
+
+  var config = {
+    method: 'get',
+    url: 'http://localhost:1337/parties/5',
+    headers: { 
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIyMTI4NTc0LCJleHAiOjE2MjQ3MjA1NzR9.QYpWRH-3uAS_EbvPSXg8iZ19jTKbUXo0UzVYTzn6S18', 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    setTitle(response.data.party_title);
+    setLocation(response.data.Address);
+    setTime(response.data.Celebrate_date);
+    setDescription(response.data.Description);
+    setInvited(response.data.invitedList.length);
+    setName(response.data.host.username);
+    setInitial(response.data.host.username.charAt(0));
+  })
+  .catch(function (error) { 
+    console.log(error);
+  });
+
+  var date = new Date(time);
+  console.log(date.getTime());
+  var timestamp = date.getTime();
+  var date2 = new Date(timestamp);
+  var time2 = "Date: "+(date.getMonth()+1)+
+  "/"+(date.getDate())+
+  "/"+date.getFullYear();
+  var time3;
+  if(date.getHours() < 10){
+    if(date.getMinutes() < 10){
+      time3 = "Time: " + "0"+ date.getHours()+
+      ":0"+date.getMinutes();
+    }
+    else{
+      time3 = "Time: " + "0"+ date.getHours()+
+      ":"+date.getMinutes();
+    }
+  }
+  else {
+    if(date.getMinutes() < 10){
+      time3 = "Time: " + "0"+ date.getHours()+
+      ":0"+date.getMinutes();
+    }
+    else{
+      time3 = "Time: " + "0"+ date.getHours()+
+      ":"+date.getMinutes();
+    }
+  }
+  
+  time2 = time2 + "\n" + time3;
+ 
+
   return (
     <Grid item xs={12} container component="main" className={classes.root}>
 
@@ -168,7 +246,7 @@ export default function SimpleTabs() {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            M
+            {initial}
           </Avatar>
         }
         action={
@@ -176,18 +254,20 @@ export default function SimpleTabs() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Minh's Birthday"
-        subheader="September 14, 2016"
+        title={title}
+        subheader= {time2} 
+        //component= {time3}   
       />
       <CardContent>
 
         <Typography variant="body2" color="primary" component="p">
-          2207 NE 131st Ave Portland OR
+          Host: {name} <br></br>
+          Address: {address}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-            5
+            {invited}
           <PersonRoundedIcon />
         </IconButton>
         <IconButton aria-label="share">
@@ -206,12 +286,7 @@ export default function SimpleTabs() {
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent>
-          <Typography paragraph>Summer in Portland may be one of the world’s best-kept secrets. Days are long and dry, 
-          temperatures are comfortably warm, and the city makes the most of these conditions with outdoor celebrations and exciting 
-          things to do running well into September. There’s no better time for hikes, taking a dip in the Willamette River or heading to
-           a nearby farm to pick (and devour) delicious berries. Meanwhile, annual summertime events and festivals include the joyous Portland Pride Parade 
-           and Festival in June, the epic Oregon Brewers Festival in July and Pickathon Music Festival in August. Read on for our top picks for things to do, 
-           see and experience during a summertime visit to Portland.
+          <Typography paragraph>{description}
           </Typography>
         </CardContent>
       {/* </Collapse> */}
