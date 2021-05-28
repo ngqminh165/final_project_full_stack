@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
-
+import MapWrapper from "./../GoogleMap/mapWrapper"
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { darken, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -15,7 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CovidChart from './../Chartjs/Chart'
 import Weather from "../Weather/Weather";
-
+import GoogleMapComponentWithMarker from "./../GoogleMap/GoogleMap"
+import Toolbar from '@material-ui/core/Toolbar';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -27,6 +28,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import Avatar from '@material-ui/core/Avatar';
+import yellow from "@material-ui/core/colors/yellow";
+
+import { blueGrey, grey, lightBlue, lightGreen} from "@material-ui/core/colors";
+import { dark, light } from "@material-ui/core/styles/createPalette";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,6 +71,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+
+  h1: {
+    color: lightBlue[800],
+  },
+
+  
+  gridStyle: {
+    backgroundColor: lightBlue[50],
+    border: `3px solid ${lightBlue[800]}`,
+  },
+
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
@@ -136,18 +153,18 @@ export default function SimpleTabs() {
       });
     }
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid item xs={12} container component="main" className={classes.root}>
 
 
-      <AppBar position="static">
+      {/* <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Party" {...a11yProps(0)} />
           <Tab label="Covid" {...a11yProps(1)} />
           <Tab label="Weather" {...a11yProps(2)} />
         </Tabs>
-      </AppBar>
+      </AppBar> */}
       <TabPanel value={value} index={0}>
-      <Card className={classes.root}>
+      <Card className={classes.gridStyle}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -176,7 +193,7 @@ export default function SimpleTabs() {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <IconButton
+        {/* <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
@@ -185,9 +202,9 @@ export default function SimpleTabs() {
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </IconButton>
+        </IconButton> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent>
           <Typography paragraph>Summer in Portland may be one of the world’s best-kept secrets. Days are long and dry, 
           temperatures are comfortably warm, and the city makes the most of these conditions with outdoor celebrations and exciting 
@@ -197,7 +214,7 @@ export default function SimpleTabs() {
            see and experience during a summertime visit to Portland.
           </Typography>
         </CardContent>
-      </Collapse>
+      {/* </Collapse> */}
       <CardActions disableSpacing>
         <Button variant="contained" color="primary">
              Join with Us
@@ -213,6 +230,45 @@ export default function SimpleTabs() {
         <Weather></Weather>
       </TabPanel>
 
+
+      <TabPanel value={value} index={0}>
+        <Card className={classes.root}>
+          <Grid container xs={12}  direction="row" justify="space-between" alignItems="center" className={classes.gridStyle}>
+        
+          
+            <Grid item xs={6}>
+              <header className="d-flex justify-content-center align-items-center">
+                <h2 className={classes.h1}>Covid Calculation</h2>
+              </header>
+              <CovidChart></CovidChart>
+            </Grid>
+          
+            <Grid item xs={6} >
+              <header className="d-flex justify-content-center align-items-center">
+                <h2 className={classes.h1}>Today's Weather</h2>
+              </header>
+              <Weather></Weather>
+            </Grid>
+          
+          
+          </Grid>
+        </Card>
+      </TabPanel>
+
+      {/* <TabPanel value={value} index={0}> */}
+        <Card className={classes.root}>
+          <Grid container xs={12}  className={classes.gridStyle}>
+            <Grid item xs={12}>
+              <header className="d-flex justify-content-center align-items-center">
+                <h2 className={classes.h1}>Direction</h2>
+              </header>
+              <MapWrapper></MapWrapper>
+            </Grid>
+          </Grid>
+        </Card>
+      {/* </TabPanel> */}
+      
     </Grid>
+    
   );
 }

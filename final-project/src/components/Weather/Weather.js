@@ -98,11 +98,11 @@ const Weather = () => {
             : "white"
         }
       >
-        <header className="d-flex justify-content-center align-items-center">
+        {/* <header className="d-flex justify-content-center align-items-center">
           <h2>Today's Weather</h2>
-        </header>
+        </header> */}
         <div className="container">
-          <div className="mt-3 d-flex flex-column justify-content-center align-items-center">
+          <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
             <div class="col-auto">
               <label for="location-name" class="col-form-label">
                 Enter Zipcode :
@@ -117,13 +117,13 @@ const Weather = () => {
                 value={getState}
               />
             </div>
-            <button className="btn btn-primary mt-2" onClick={submitHandler}>
+            <button className="btn btn-primary mt-1" onClick={submitHandler}>
               Search
             </button>
           </div>
           <Wrapper2>
             <div
-              className="card mt-3 mx-auto"
+              className="card mt-4 mx-auto"
               style={{
                 background: "transparent",
                 width: "60vw",
