@@ -4,6 +4,16 @@ import PartyHeader from './PartyHeader'
 import styled from 'styled-components'
 //import PartyFooter from '../partyFooter';
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
+import { useHistory } from "react-router-dom";
+
+const descriptionArray = []
+const titleArray = []
+const addressArray = [] 
+var i = 0
+
+
+
 
 const Wrapper = styled.div`
     .party-highlight__card {
@@ -64,11 +74,28 @@ const Wrapper = styled.div`
     }
 `;
 
+
+
+
+
 class PartyInfo extends React.Component {
 state = {
     restaurants: [],
     error: null,
   };
+
+ 
+
+    
+   handleClick = (e) => {
+    
+      console.log("Clicked")
+      
+  
+  
+      
+    }
+
 
   // Fetch your restaurants immediately after the component is mounted
   componentDidMount = async () => {
@@ -89,8 +116,11 @@ state = {
       this.setState({ error });
     }
   };
+  
+
 
   render() {
+    
     const { error, restaurant } = this.state;
 
     // Print errors if any
@@ -98,30 +128,104 @@ state = {
       return <div>An error occured: {error.message}</div>;
     }
 
-    return (
-      <div className="App">
-        <ul>
-          {this.state.restaurants.map(restaurant => (
-            <Wrapper>
+
+    const parties = this.state.restaurants.map(restaurant => (
+
+         
+    <Grid item xs={4} >
+      <Wrapper onClick = {this.handleClick} style={{cursor: 'pointer'}}>
             <div className="party-highlight__card p-0 m-2">
                 <PartyHeader zipcode=""/>
-                 
+                
                 <div className="party-title party-highlight__card-title">
                     <p>{restaurant.party_title}</p>
                 </div>
                 <div className="party-highlight__card-location">
                     <p>{restaurant.Address}</p>
                 </div>
-                <div className="party-highlight__card-description d-md-block">
+                <div className="party-highlight__card-description d-md-auto">
                     {restaurant.Description}
 
                 </div>
 
             </div>
-        </Wrapper>
-          ))}
-        </ul>
-      </div>
+      </Wrapper>
+      </Grid>
+           
+     
+    ))
+
+    
+    
+    return ( 
+      restaurant !== null ?
+          <Grid container spacing={24}>        
+             {parties}        
+          </Grid>
+        : "Only one video"
+      /*<Grid container>
+      <div className="App">
+          <Grid item xs={3}>
+            <Wrapper>
+            <div className="party-highlight__card p-0 m-2">
+                <PartyHeader zipcode=""/>
+                
+                <div className="party-title party-highlight__card-title">
+                    <p>{titleArray[0]}</p>
+                </div>
+                <div className="party-highlight__card-location">
+                    <p>{addressArray[0]}</p>
+                </div>
+                <div className="party-highlight__card-description d-md-block">
+                    {descriptionArray[0]}
+
+                </div>
+
+            </div>
+            </Wrapper>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Wrapper>
+            <div className="party-highlight__card p-0 m-2">
+                <PartyHeader zipcode=""/>
+                
+                <div className="party-title party-highlight__card-title">
+                    <p>{titleArray[0]}</p>
+                </div>
+                <div className="party-highlight__card-location">
+                    <p>{addressArray[0]}</p>
+                </div>
+                <div className="party-highlight__card-description d-md-block">
+                    {descriptionArray[0]}
+
+                </div>
+
+            </div>
+            </Wrapper>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Wrapper>
+            <div className="party-highlight__card p-0 m-2">
+                <PartyHeader zipcode=""/>
+                
+                <div className="party-title party-highlight__card-title">
+                    <p>{titleArray[0]}</p>
+                </div>
+                <div className="party-highlight__card-location">
+                    <p>{addressArray[0]}</p>
+                </div>
+                <div className="party-highlight__card-description d-md-block">
+                    {descriptionArray[0]}
+
+                </div>
+
+            </div>
+            </Wrapper>
+          </Grid>
+        </div>
+      </Grid>*/
     );
   }
 
