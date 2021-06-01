@@ -175,7 +175,7 @@ export default function SimpleTabs() {
 
   var config = {
     method: 'get',
-    url: 'http://localhost:1337/parties/5',
+    url: 'http://localhost:1337/parties/1',
     headers: { 
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIyMTI4NTc0LCJleHAiOjE2MjQ3MjA1NzR9.QYpWRH-3uAS_EbvPSXg8iZ19jTKbUXo0UzVYTzn6S18', 
       'Content-Type': 'application/json'
