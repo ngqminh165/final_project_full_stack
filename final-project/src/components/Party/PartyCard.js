@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 //import PropTypes from 'prop-types'
 import PartyHeader from './PartyHeader'
 import styled from 'styled-components'
@@ -6,14 +6,7 @@ import styled from 'styled-components'
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
-
-const descriptionArray = []
-const titleArray = []
-const addressArray = [] 
-var i = 0
-
-
-
+import { withRouter } from 'react-router-dom';
 
 const Wrapper = styled.div`
     .party-highlight__card {
@@ -74,28 +67,31 @@ const Wrapper = styled.div`
     }
 `;
 
+function HomeButton() {
+  let history = useHistory();
+
+  function handleClick() {
+    console.log("clicked") 
+    history.push("/home");
+  }
+
+}
 
 
+class PartyInfo extends PureComponent {
 
+  handleClick = () => {
+    const { history } = this.props;
+    if(history) history.push('/partydetail');
+    console.log("clicked")
+   }
 
-class PartyInfo extends React.Component {
 state = {
     restaurants: [],
     error: null,
   };
 
- 
-
-    
-   handleClick = (e) => {
-    
-      console.log("Clicked")
-      
-  
-  
-      
-    }
-
+     
 
   // Fetch your restaurants immediately after the component is mounted
   componentDidMount = async () => {
@@ -118,8 +114,10 @@ state = {
   };
   
 
+  
 
   render() {
+    
     
     const { error, restaurant } = this.state;
 
@@ -133,7 +131,7 @@ state = {
 
          
     <Grid item xs={4} >
-      <Wrapper onClick = {this.handleClick} style={{cursor: 'pointer'}}>
+      <Wrapper  onClick = {this.handleClick} style={{cursor: 'pointer'}}>
             <div className="party-highlight__card p-0 m-2">
                 <PartyHeader zipcode=""/>
                 
@@ -158,80 +156,18 @@ state = {
     
     
     return ( 
+      
       restaurant !== null ?
           <Grid container spacing={24}>        
              {parties}        
           </Grid>
         : "Only one video"
-      /*<Grid container>
-      <div className="App">
-          <Grid item xs={3}>
-            <Wrapper>
-            <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode=""/>
-                
-                <div className="party-title party-highlight__card-title">
-                    <p>{titleArray[0]}</p>
-                </div>
-                <div className="party-highlight__card-location">
-                    <p>{addressArray[0]}</p>
-                </div>
-                <div className="party-highlight__card-description d-md-block">
-                    {descriptionArray[0]}
-
-                </div>
-
-            </div>
-            </Wrapper>
-          </Grid>
-
-          <Grid item xs={3}>
-            <Wrapper>
-            <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode=""/>
-                
-                <div className="party-title party-highlight__card-title">
-                    <p>{titleArray[0]}</p>
-                </div>
-                <div className="party-highlight__card-location">
-                    <p>{addressArray[0]}</p>
-                </div>
-                <div className="party-highlight__card-description d-md-block">
-                    {descriptionArray[0]}
-
-                </div>
-
-            </div>
-            </Wrapper>
-          </Grid>
-
-          <Grid item xs={3}>
-            <Wrapper>
-            <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode=""/>
-                
-                <div className="party-title party-highlight__card-title">
-                    <p>{titleArray[0]}</p>
-                </div>
-                <div className="party-highlight__card-location">
-                    <p>{addressArray[0]}</p>
-                </div>
-                <div className="party-highlight__card-description d-md-block">
-                    {descriptionArray[0]}
-
-                </div>
-
-            </div>
-            </Wrapper>
-          </Grid>
-        </div>
-      </Grid>*/
     );
   }
 
 }
 
-export default PartyInfo
+export default withRouter(PartyInfo)
 
 
 
