@@ -80,9 +80,9 @@ function HomeButton() {
 
 class PartyInfo extends PureComponent {
 
-  handleClick = () => {
+  handleClick = (id) => {
     const { history } = this.props;
-    if(history) history.push('/partydetail');
+    if(history) history.push('/partydetail/' + id);
     console.log("clicked")
    }
 
@@ -118,9 +118,7 @@ state = {
 
   render() {
     
-    
     const { error, restaurant } = this.state;
-
     // Print errors if any
     if (error) {
       return <div>An error occured: {error.message}</div>;
@@ -131,7 +129,7 @@ state = {
 
          
     <Grid item xs={4} >
-      <Wrapper  onClick = {this.handleClick} style={{cursor: 'pointer'}}>
+      <Wrapper  onClick={this.handleClick.bind(this, restaurant.id)} style={{cursor: 'pointer'}}>
             <div className="party-highlight__card p-0 m-2">
                 <PartyHeader zipcode=""/>
                 

@@ -1,4 +1,6 @@
 import React, {useState} from "react"
+import { useParams } from "react-router-dom";
+
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import clsx from 'clsx';
@@ -113,6 +115,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleTabs() {
+  console.log( useParams())
+  const { id } = useParams();
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [email, setEmail] = useState();
@@ -175,7 +180,7 @@ export default function SimpleTabs() {
 
   var config = {
     method: 'get',
-    url: 'http://localhost:1337/parties/20',
+    url: 'http://localhost:1337/parties/' + id,
     headers: { 
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIyMTI4NTc0LCJleHAiOjE2MjQ3MjA1NzR9.QYpWRH-3uAS_EbvPSXg8iZ19jTKbUXo0UzVYTzn6S18', 
       'Content-Type': 'application/json'

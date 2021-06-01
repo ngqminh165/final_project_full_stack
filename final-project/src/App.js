@@ -38,7 +38,7 @@ function App() {
         {/* <Create Page /> */}
           <SignUp />
         </Route>
-        <Route path="/partydetail" exact>
+        <Route path="/partydetail/:id">
         {/* <Create Page /> */}
           <PartyDetail />
         </Route>
