@@ -175,7 +175,7 @@ export default function SimpleTabs() {
 
   var config = {
     method: 'get',
-    url: 'http://localhost:1337/parties/1',
+    url: 'http://localhost:1337/parties/20',
     headers: { 
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIyMTI4NTc0LCJleHAiOjE2MjQ3MjA1NzR9.QYpWRH-3uAS_EbvPSXg8iZ19jTKbUXo0UzVYTzn6S18', 
       'Content-Type': 'application/json'
@@ -218,11 +218,11 @@ export default function SimpleTabs() {
   }
   else {
     if(date.getMinutes() < 10){
-      time3 = "Time: " + "0"+ date.getHours()+
+      time3 = "Time: " + date.getHours()+
       ":0"+date.getMinutes();
     }
     else{
-      time3 = "Time: " + "0"+ date.getHours()+
+      time3 = "Time: " + date.getHours()+
       ":"+date.getMinutes();
     }
   }

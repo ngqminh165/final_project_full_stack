@@ -75,7 +75,7 @@ const PartyContainer = props => {
             <Container border="primary">
 
             {/* Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop */}
-            <Row>
+            {/* <Row>
                 <Col>
                     <Row>
                         <Col>
@@ -116,7 +116,7 @@ const PartyContainer = props => {
                     </Row>
                 </Col>
                 
-            </Row>
+            </Row> */}
             </Container>
         </Wrapper>
     )
