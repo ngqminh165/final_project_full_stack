@@ -37,11 +37,12 @@ function NavBarElements() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/create" style={activeStyle}>
+            <Nav.Link href="/create" style={activeStyle} >
               Create
             </Nav.Link>
             <Nav.Link href="/covid" style={activeStyle}>Should I Go?</Nav.Link>
           </Nav> 
+         
           <Nav className="mr-left">
           <Nav.Link href="/login" style={activeStyle1}>
               Login

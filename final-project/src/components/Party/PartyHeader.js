@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 
@@ -67,7 +68,12 @@ const Wrapper = styled.div`
         .party-card-hightlight__header-title {
             font-size: 14px;
         }
+
     }
+    .MuiSvgIcon-root{
+        margin-top: -5px;
+    }
+
 `;
 const PartyHeader = props => {
     const colors = ["#1B998B", "#7798AB", "#C3DBC5", "#E8DCB9", "#F2CEE6"];
@@ -78,7 +84,7 @@ const PartyHeader = props => {
         <Wrapper color={mycolor}>
             <div className="container-fluid party-card-highlight__header">
                 <div className="party-card-hightlight__header-title2">
-                {props.host.username}</div>
+                <AccountCircle/> {props.host.username}</div>
                 
                 <div className="row d-flex flex-row justify-content-between">
                     <div className="party-card-hightlight__header-title">

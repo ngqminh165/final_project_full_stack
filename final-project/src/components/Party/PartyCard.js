@@ -51,6 +51,7 @@ const Wrapper = styled.div`
         color: #546163;
         overflow: hidden;   
         display: -webkit-box;
+        
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
     }
