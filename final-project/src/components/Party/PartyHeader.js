@@ -5,12 +5,13 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
     .party-card-highlight__header {
-        height: 51px;
+        height: 45px;
         background-color:  ${props => props.color};
         border-top-left-radius: 6.51px;
         border-top-right-radius: 6.51px;
         padding-top: 12px;
         padding-right: 16px;
+        text-align: left
        
     }
     .party-card-highlight__header-zipcode {
@@ -26,6 +27,20 @@ const Wrapper = styled.div`
         letter-spacing: normal;
         color: #b5d8be;
     }
+    .party-card-hightlight__header-title2 {
+        // width: 95px;
+        height: 21px;
+        font-family: SFProDisplay;
+        font-size: 22px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #3E442B;
+        padding: 0px 0 18px 20px;
+    }
+
     .party-card-hightlight__header-title {
         // width: 95px;
         height: 21px;
@@ -62,6 +77,9 @@ const PartyHeader = props => {
     return (
         <Wrapper color={mycolor}>
             <div className="container-fluid party-card-highlight__header">
+                <div className="party-card-hightlight__header-title2">
+                {props.host.username}</div>
+                
                 <div className="row d-flex flex-row justify-content-between">
                     <div className="party-card-hightlight__header-title">
                         Do not miss it!!!! 
