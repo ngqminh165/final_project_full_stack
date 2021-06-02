@@ -55,7 +55,7 @@ const Wrapper = styled.div`
     }
 `;
 const PartyHeader = props => {
-    const colors = ["#0d1b1e", "#7798AB", "#C3DBC5", "#E8DCB9", "#F2CEE6"];
+    const colors = ["#1B998B", "#7798AB", "#C3DBC5", "#E8DCB9", "#F2CEE6"];
 
     const mycolor = colors[Math.floor(Math.random() * colors.length)];
     console.log(mycolor)

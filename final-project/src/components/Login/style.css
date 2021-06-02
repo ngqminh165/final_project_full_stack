@@ -44,8 +44,8 @@
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap');
   
   body{
-    background: "#0D1B1E";
-    background: "#A24936";
+    background: "#0D1B1E" !important;
+    background-color: "#DDDBF1" !important;
     font-family: "work sans";
   }
   

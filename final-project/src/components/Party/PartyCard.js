@@ -125,8 +125,9 @@ state = {
          
     <Grid item xs={4} >
       <Wrapper  onClick={this.handleClick.bind(this, restaurant.id)} style={{cursor: 'pointer'}}>
+
             <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode="" color={
+                <PartyHeader  zipcode="" color={
                   
                   restaurant.id %2 ==0? 'red': 'blue'}/>
                 
