@@ -1,14 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
+
+
 const Wrapper = styled.div`
     .party-card-highlight__header {
         height: 51px;
-        background-color: #33944d;
+        background-color:  ${props => props.color};
         border-top-left-radius: 6.51px;
         border-top-right-radius: 6.51px;
         padding-top: 12px;
         padding-right: 16px;
+       
     }
     .party-card-highlight__header-zipcode {
         height: 19px;
@@ -52,12 +55,16 @@ const Wrapper = styled.div`
     }
 `;
 const PartyHeader = props => {
+    const colors = ["#0d1b1e", "#7798AB", "#C3DBC5", "#E8DCB9", "#F2CEE6"];
+
+    const mycolor = colors[Math.floor(Math.random() * colors.length)];
+    console.log(mycolor)
     return (
-        <Wrapper>
+        <Wrapper color={mycolor}>
             <div className="container-fluid party-card-highlight__header">
                 <div className="row d-flex flex-row justify-content-between">
                     <div className="party-card-hightlight__header-title">
-                        Do not miss it!!!!
+                        Do not miss it!!!! 
                     </div>
                     <div className="d-flex flex-column">
                         <div>

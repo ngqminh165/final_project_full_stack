@@ -116,6 +116,9 @@ state = {
       return <div>An error occured: {error.message}</div>;
     }
 
+    const colors = ["0d1b1e", "7798AB", "C3DBC5", "E8DCB9", "F2CEE6"];
+
+    const random = Math.floor(Math.random() * colors.length);
 
     const parties = this.state.restaurants.map(restaurant => (
 
@@ -123,7 +126,9 @@ state = {
     <Grid item xs={4} >
       <Wrapper  onClick={this.handleClick.bind(this, restaurant.id)} style={{cursor: 'pointer'}}>
             <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode=""/>
+                <PartyHeader zipcode="" color={
+                  
+                  restaurant.id %2 ==0? 'red': 'blue'}/>
                 
                 <div className="party-title party-highlight__card-title">
                     <p>{restaurant.party_title}</p>

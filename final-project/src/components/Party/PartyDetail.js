@@ -146,7 +146,7 @@ export default function SimpleTabs() {
   const [password, setPassword] = useState();
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
-  const [attendee, setAdd] = useState([])
+  const [attendee, setAdd] = useState({})
   const history = useHistory();
   const [expanded, setExpanded] = useState(false);
   
@@ -218,8 +218,7 @@ export default function SimpleTabs() {
     setInvited(response.data.invitedList.length);
     setName(response.data.host.username);
     setInitial(response.data.host.username.charAt(0));
-    setAdd(arr => [...arr, response.data.invitedList.username]);
-    
+    //setAdd(arr => {return {...response.data.invitedList}});
     
   })
   .catch(function (error) { 
@@ -296,9 +295,9 @@ export default function SimpleTabs() {
       </CardContent>
       <CardActions disableSpacing>
       
-        <IconButton aria-label="add to favorites" onClick={handleExpandClick}>
+        <IconButton aria-label="add to favorites"  >
             {invited}
-          <PersonRoundedIcon onClick={handleExpandClick} />
+          <PersonRoundedIcon/>
           
         </IconButton>
 
