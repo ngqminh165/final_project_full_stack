@@ -67,15 +67,7 @@ const Wrapper = styled.div`
     }
 `;
 
-function HomeButton() {
-  let history = useHistory();
 
-  function handleClick() {
-    console.log("clicked") 
-    history.push("/home");
-  }
-
-}
 
 
 class PartyInfo extends PureComponent {

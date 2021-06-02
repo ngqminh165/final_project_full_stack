@@ -1,11 +1,12 @@
 import React, {useState} from "react"
 import { useParams } from "react-router-dom";
-
+import { FaCalendar } from 'react-icons/fa'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
-import MapWrapper from "./../GoogleMap/mapWrapper"
+import ShowMoreText from 'react-show-more-text';
+import MapWrapper from "./../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
 import { darken, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,10 +32,18 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import Avatar from '@material-ui/core/Avatar';
 import yellow from "@material-ui/core/colors/yellow";
-
-
 import { blueGrey, grey, lightBlue, lightGreen} from "@material-ui/core/colors";
 import { dark, light } from "@material-ui/core/styles/createPalette";
+import {
+  EmailShareButton,
+  EmailIcon,
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterShareButton,
+  TwitterIcon
+} from "react-share";
+import Description from "@material-ui/icons/Description";
+
 
 
 function TabPanel(props) {
@@ -69,6 +78,8 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -114,6 +125,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
+
 export default function SimpleTabs() {
   console.log( useParams())
   const { id } = useParams();
@@ -131,15 +146,19 @@ export default function SimpleTabs() {
   const [password, setPassword] = useState();
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
-
+  const [attendee, setAdd] = useState([])
   const history = useHistory();
   const [expanded, setExpanded] = useState(false);
+  
 
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleExpandClick = () => {
     setExpanded(!expanded);
+    
+    
   };
   const handleSubmit = async e => {
       //console.log(localStorage.getItem('JWT'));
@@ -166,6 +185,7 @@ export default function SimpleTabs() {
       });
     }
 
+
   var axios = require('axios');
   var data = JSON.stringify({
     "party_title": "Thanh's birthday",
@@ -182,7 +202,7 @@ export default function SimpleTabs() {
     method: 'get',
     url: 'http://localhost:1337/parties/' + id,
     headers: { 
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIyMTI4NTc0LCJleHAiOjE2MjQ3MjA1NzR9.QYpWRH-3uAS_EbvPSXg8iZ19jTKbUXo0UzVYTzn6S18', 
+      'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
       'Content-Type': 'application/json'
     },
     data : data
@@ -198,6 +218,9 @@ export default function SimpleTabs() {
     setInvited(response.data.invitedList.length);
     setName(response.data.host.username);
     setInitial(response.data.host.username.charAt(0));
+    setAdd(arr => [...arr, response.data.invitedList.username]);
+    
+    
   })
   .catch(function (error) { 
     console.log(error);
@@ -234,6 +257,7 @@ export default function SimpleTabs() {
   
   time2 = time2 + "\n" + time3;
  
+  
 
   return (
     <Grid item xs={12} container component="main" className={classes.root}>
@@ -271,23 +295,33 @@ export default function SimpleTabs() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+      
+        <IconButton aria-label="add to favorites" onClick={handleExpandClick}>
             {invited}
-          <PersonRoundedIcon />
+          <PersonRoundedIcon onClick={handleExpandClick} />
+          
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        {/* <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton> */}
+
+        <FacebookShareButton 
+          url={'http://localhost:3000/partydetail/' + id}
+          >
+          <IconButton aria-label="share">
+            <FacebookIcon size={32} round={true}/>
+          </IconButton>
+        </FacebookShareButton>
+
+        <EmailShareButton url={'http://localhost:3000/partydetail/' + id}>
+          <IconButton aria-label="share">
+            <EmailIcon size={32} round={true}/>
+          </IconButton>
+        </EmailShareButton>
+
+        <TwitterShareButton url={'http://localhost:3000/partydetail/' + id}>
+          <IconButton aria-label="share">
+            <TwitterIcon size={32} round={true}/>
+          </IconButton>
+        </TwitterShareButton>
+        
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent>

@@ -3,12 +3,24 @@ import NavDropdown from "react-bootstrap/NavDropdown"
 import Navbar from "react-bootstrap/Navbar"
 import styled from "styled-components"
 
-const navbar = { backgroundColor: "#00ad5f" }
+const navbar = { backgroundColor: "#36a392" }
 const activeStyle = {
-  //fontWeight: "bold",
+  fontWeight: "bold",
+  color: "white",
 }
+const activeStyle1 = {
+  fontWeight: "bold",
+  fontSize: 15,
+  color: "white",
+  hover: {
+    backgroundColor:"black" 
+  }
+}
+
+
+
 const Wrapper = styled.div`
-  font-family: "Fancy Me";
+  font-family:  "Gill Sans Extrabold", sans-serif;
 `
 function NavBarElements() {
   return (
@@ -17,36 +29,27 @@ function NavBarElements() {
         collapseOnSelect
         expand="lg"
         style={navbar}
-        variant="dark"
-        bg="dark"
         
       >
-        <Navbar.Brand href="/">CELLABORATE</Navbar.Brand>
+        
+        <Navbar.Brand href="/"style={activeStyle}> CELLABORATE</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/create" style={activeStyle}>
               Create
             </Nav.Link>
-            <Nav.Link href="/covid">Should I Go?</Nav.Link>
-          </Nav>
-          <Nav>
-          <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/partydetail">Detail</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="/login">
-                Login
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/signout">
-                Sign Out
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link href="/covid" style={activeStyle}>Should I Go?</Nav.Link>
+          </Nav> 
+          <Nav className="mr-left">
+          <Nav.Link href="/login" style={activeStyle1}>
+              Login
+          </Nav.Link>
+
+          
           </Nav>
         </Navbar.Collapse>
+        
       </Navbar>
     </Wrapper>
   )
