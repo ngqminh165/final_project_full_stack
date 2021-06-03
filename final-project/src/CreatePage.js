@@ -159,7 +159,7 @@ export default function SignInSide() {
           console.log(JSON.stringify(response.data));
           setShowSuccess(true)
 
-          history.push("/partydetail")
+          history.push("/partydetail/" + response.data.id)
         })
 
         .catch(function (error) {

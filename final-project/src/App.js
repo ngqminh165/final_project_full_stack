@@ -12,6 +12,7 @@ import SignInSide from "./components/Login/SignIn"
 import SignUp from "./components/Login/SignUp"
 import PartyDetail from "./components/Party/PartyDetail"
 import {LoginContext} from "./Contexts/LoginContext"
+import PartyDetail2 from "./components/Party/PartyDetail2"
 
 function App() {
   const [usernameDisplay, setUserNameDisplay] = useState('Login');
@@ -32,6 +33,10 @@ function App() {
         <Route path="/login" exact>
         {/* <Login Page /> */}
           <SignInSide />
+        </Route>
+        <Route path="/covid" exact>
+        {/* <Create Page /> */}
+          <PartyDetail2 />
         </Route>
         <Route path="/create" exact>
         {/* <Create Page /> */}

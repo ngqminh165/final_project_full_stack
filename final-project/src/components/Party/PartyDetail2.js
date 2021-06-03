@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import ShowMoreText from 'react-show-more-text';
-import MapWrapper from "./../GoogleMap/mapWrapper";
+import MapWrapper from "../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
 import { darken, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,9 +17,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import CovidChart from './../Chartjs/Chart'
+import CovidChart from '../Chartjs/Chart'
 import Weather from "../Weather/Weather";
-import GoogleMapComponentWithMarker from "./../GoogleMap/GoogleMap"
+import GoogleMapComponentWithMarker from "../GoogleMap/GoogleMap"
 import Toolbar from '@material-ui/core/Toolbar';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -256,112 +256,7 @@ export default function SimpleTabs() {
         </Tabs>
       </AppBar> */}
       <TabPanel value={value} index={0}>
-      <Card className={classes.gridStyle}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {initial}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={title}
-        subheader= {time2} 
-        //component= {time3}   
-      />
-      <CardContent>
-
-        <Typography variant="body2" color="primary" component="p">
-          Host: {name} <br></br>
-          Address: {address}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-      
-        {/* <IconButton aria-label="add to favorites"  >
-            {invited}
-          <PersonRoundedIcon/>
-          
-        </IconButton> */}
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          className={nestList.root}
-            >   
-        <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          {invited}
-          <PersonRoundedIcon/>
-        </ListItemIcon>
-        <ListItemText primary="Buddies" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          
-            <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary={"Minh Nguyen"} />
-            
-            </ListItem>
-            <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            
-            <ListItemText primary={"Cody Green"} />
-            
-            </ListItem>
-            <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            
-            <ListItemText primary={"Tuan Dinh"} />
-            </ListItem>
-        </List>
-      </Collapse>
-      </List>        
-
-        <FacebookShareButton 
-          url={'http://localhost:3000/partydetail/' + id}
-          >
-          <IconButton aria-label="share">
-            <FacebookIcon size={32} round={true}/>
-          </IconButton>
-        </FacebookShareButton>
-
-        <EmailShareButton url={'http://localhost:3000/partydetail/' + id}>
-          <IconButton aria-label="share">
-            <EmailIcon size={32} round={true}/>
-          </IconButton>
-        </EmailShareButton>
-
-        <TwitterShareButton url={'http://localhost:3000/partydetail/' + id}>
-          <IconButton aria-label="share">
-            <TwitterIcon size={32} round={true}/>
-          </IconButton>
-        </TwitterShareButton>
-        
-      </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
-        <CardContent>
-          <Typography paragraph>{description}
-          </Typography>
-        </CardContent>
-      {/* </Collapse> */}
-      <CardActions disableSpacing>
-        <Button variant="contained" color="primary">
-             Join with Us
-        </Button>
-      </CardActions>
-
-    </Card>
+   
       </TabPanel>
       <TabPanel value={value} index={1}>
       <CovidChart></CovidChart>
