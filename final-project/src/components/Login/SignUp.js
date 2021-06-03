@@ -1,4 +1,5 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import {LoginContext} from "../../Contexts/LoginContext" 
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
@@ -21,7 +22,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Party With Us
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -64,7 +65,9 @@ export default function SignUp() {
   const classes = useStyles();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [username, setUsername] = useState();
+  const [username, setUserName] = useState();
+
+  const {setUserNameDisplay} = useContext(LoginContext)
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const history = useHistory();
@@ -90,6 +93,8 @@ export default function SignUp() {
         console.log(response)
         setShowSuccess(true)
         localStorage.setItem('JWT', response.data.jwt);
+        localStorage.setItem('User', JSON.stringify(response.data.user));
+        setUserNameDisplay(response.data.user.username)
         history.push("/");
 
       })
@@ -120,7 +125,7 @@ export default function SignUp() {
               label="Username"
               name="username"
               value={username}
-              onInput={ e=>setUsername(e.target.value)}
+              onInput={ e=>setUserName(e.target.value)}
               autoFocus
             />
 

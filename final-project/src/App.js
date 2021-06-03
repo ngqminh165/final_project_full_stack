@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import "./App.css"
 import Navbar from "./components/Navbar"
 import styled from "styled-components"
@@ -11,10 +11,13 @@ import CreateForm from "./CreatePage.js"
 import SignInSide from "./components/Login/SignIn"
 import SignUp from "./components/Login/SignUp"
 import PartyDetail from "./components/Party/PartyDetail"
-
+import {LoginContext} from "./Contexts/LoginContext"
 
 function App() {
+  const [usernameDisplay, setUserNameDisplay] = useState('Login');
+
   return (
+    <LoginContext.Provider value={{usernameDisplay, setUserNameDisplay}}>
     <Router>
       <Navbar />
       <Switch>
@@ -44,6 +47,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+    </LoginContext.Provider>
   )
 }
 

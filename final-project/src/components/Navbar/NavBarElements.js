@@ -2,7 +2,8 @@ import Nav from "react-bootstrap/Nav"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Navbar from "react-bootstrap/Navbar"
 import styled from "styled-components"
-
+import React, {useState, useContext} from "react"
+import {LoginContext} from "../../Contexts/LoginContext" 
 
 const navbar = { backgroundColor: "#563d7c" }
 const activeStyle = {
@@ -24,6 +25,7 @@ const Wrapper = styled.div`
   font-family:  "Gill Sans Extrabold", sans-serif;
 `
 function NavBarElements() {
+  const {usernameDisplay} = useContext(LoginContext)
   return (
     <Wrapper>
       <Navbar
@@ -45,7 +47,7 @@ function NavBarElements() {
          
           <Nav className="mr-left">
           <Nav.Link href="/login" style={activeStyle1}>
-              Login
+              {usernameDisplay}
           </Nav.Link>
 
           

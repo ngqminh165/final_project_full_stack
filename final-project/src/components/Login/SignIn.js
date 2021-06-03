@@ -1,4 +1,6 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import {LoginContext} from "../../Contexts/LoginContext" 
+
 import axios from 'axios';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -63,6 +65,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const {setUserNameDisplay} = useContext(LoginContext)
+
   const classes = useStyles();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -91,8 +95,8 @@ export default function SignInSide() {
         setShowSuccess(true)
         localStorage.setItem('JWT', response.data.jwt);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-
-        history.push("/http://localhost:3000/partydetail");
+        setUserNameDisplay(response.data.user.username)
+        history.push("/");
 
       })
       .catch(error => {
