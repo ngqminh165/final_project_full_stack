@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+
 import { useParams } from "react-router-dom";
 import { FaCalendar } from 'react-icons/fa'
 import axios from 'axios';
@@ -43,7 +44,14 @@ import {
   TwitterIcon
 } from "react-share";
 import Description from "@material-ui/icons/Description";
-
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import List from '@material-ui/core/List';
+import StarBorder from '@material-ui/icons/StarBorder';
+import styled from 'styled-components'
 
 
 function TabPanel(props) {
@@ -79,7 +87,11 @@ function a11yProps(index) {
   };
 }
 
-
+var adttendee = [
+  "Minh Nguyen",
+  "Cody Green",
+  "Tuan Dinh"
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,13 +100,14 @@ const useStyles = makeStyles((theme) => ({
 
   h1: {
     color: lightBlue[800],
+     
   },
 
-  
-  gridStyle: {
-    backgroundColor: lightBlue[50],
-    border: `3px solid ${lightBlue[800]}`,
+  h2: {
+    color: lightBlue[800],
+    marginTop: 120 
   },
+  
 
   paper: {
     margin: theme.spacing(8, 4),
@@ -126,11 +139,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
+const useNest = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+}));
 
 
 export default function SimpleTabs() {
-  console.log( useParams())
   const { id } = useParams();
 
   const classes = useStyles();
@@ -143,90 +164,49 @@ export default function SimpleTabs() {
   const [invited, setInvited] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
-  const [password, setPassword] = useState();
-  const [showError, setShowError] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
   const [attendee, setAdd] = useState({})
   const history = useHistory();
   const [expanded, setExpanded] = useState(false);
-  
+  const nestList = useNest();
 
-  
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const handleExpandClick = () => {
     setExpanded(!expanded);
-    
-    
   };
+
   const handleSubmit = async e => {
-      //console.log(localStorage.getItem('JWT'));
-      console.log("email: " + email)
-      console.log("password: " + password)
-
-      e.preventDefault();
-      setShowSuccess(false)
-      setShowError(false)
-
-      axios.post( 'http://localhost:1337/auth/local', {
-        "identifier": email,
-        "password": password
-      })
-      .then(response => {
-        console.log(response)
-        setShowSuccess(true)
-        localStorage.setItem('JWT', response.data.jwt);
-        history.push("/");
-
-      })
-      .catch(error => {
-        setShowError(true)
-      });
-    }
 
 
-  var axios = require('axios');
-  var data = JSON.stringify({
-    "party_title": "Thanh's birthday",
-    "Address": "11234 SE Division",
-    "Zip_zode": "97220",
-    "Description": "This weekend, we will CELLABORATE at Cody's House. \n Coming and Join with US. Summer is Coming.\n Do not forget to bring your food. I have beer a lot!!!",
-    "Celebrate_date": "2021-05-29T19:00:00.000Z",
-    "host": {
-      "id": 2
-    }
-  });
+    var config = {
+      method: 'get',
+      url: 'http://localhost:1337/parties/' + id,
+      headers: { 
+        'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
+        'Content-Type': 'application/json'
+      }
+    };
+  
+    axios(config)
+    .then(function (response) {
+      setTitle(response.data.party_title);
+      setLocation(response.data.Address);
+      setTime(response.data.Celebrate_date);
+      setDescription(response.data.Description);
+      setInvited(response.data.invitedList.length);
+      setName(response.data.host.username);
+      setInitial(response.data.host.username.charAt(0));
+      //setAdd(response.data.invitedList);
+      //console.log(attendee);
+      
+    })
+    .catch(function (error) { 
+      console.log(error);
+    });
+  }
 
-  var config = {
-    method: 'get',
-    url: 'http://localhost:1337/parties/' + id,
-    headers: { 
-      'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
-      'Content-Type': 'application/json'
-    },
-    data : data
-  };
+  handleSubmit()
 
-  axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-    setTitle(response.data.party_title);
-    setLocation(response.data.Address);
-    setTime(response.data.Celebrate_date);
-    setDescription(response.data.Description);
-    setInvited(response.data.invitedList.length);
-    setName(response.data.host.username);
-    setInitial(response.data.host.username.charAt(0));
-    //setAdd(arr => {return {...response.data.invitedList}});
-    
-  })
-  .catch(function (error) { 
-    console.log(error);
-  });
 
   var date = new Date(time);
-  console.log(date.getTime());
   var timestamp = date.getTime();
   var date2 = new Date(timestamp);
   var time2 = "Date: "+(date.getMonth()+1)+
@@ -256,7 +236,13 @@ export default function SimpleTabs() {
   
   time2 = time2 + "\n" + time3;
  
-  
+ 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
 
   return (
     <Grid item xs={12} container component="main" className={classes.root}>
@@ -295,11 +281,58 @@ export default function SimpleTabs() {
       </CardContent>
       <CardActions disableSpacing>
       
-        <IconButton aria-label="add to favorites"  >
+        {/* <IconButton aria-label="add to favorites"  >
             {invited}
           <PersonRoundedIcon/>
           
-        </IconButton>
+        </IconButton> */}
+        <List
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          className={nestList.root}
+            >   
+        <ListItem button onClick={handleClick}>
+        <ListItemIcon>
+          {invited}
+          <PersonRoundedIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Buddies" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary={"Jessica"} />
+            
+            </ListItem>
+            <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary={"Minh Nguyen"} />
+            
+            </ListItem>
+            <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            
+            <ListItemText primary={"Cody Green"} />
+            
+            </ListItem>
+            <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            
+            <ListItemText primary={"Tuan Dinh"} />
+            </ListItem>
+        </List>
+      </Collapse>
+      </List>        
 
         <FacebookShareButton 
           url={'http://localhost:3000/partydetail/' + id}
@@ -358,7 +391,7 @@ export default function SimpleTabs() {
           
             <Grid item xs={6} >
               <header className="d-flex justify-content-center align-items-center">
-                <h2 className={classes.h1}>Today's Weather</h2>
+                <h2 className={classes.h2}>Today's Weather</h2>
               </header>
               <Weather></Weather>
             </Grid>
