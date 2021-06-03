@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar"
 import styled from "styled-components"
 
 
-const navbar = { backgroundColor: "#A57982" }
+const navbar = { backgroundColor: "#563d7c" }
 const activeStyle = {
   fontWeight: "bold",
   color: "white",

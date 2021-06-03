@@ -38,7 +38,7 @@ const Wrapper = styled.div`
         font-style: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #3E442B;
+        color: #FFFFFF;
         padding: 0px 0 18px 20px;
     }
 
@@ -72,11 +72,12 @@ const Wrapper = styled.div`
     }
     .MuiSvgIcon-root{
         margin-top: -5px;
+        margin-left: -20px;
     }
 
 `;
 const PartyHeader = props => {
-    const colors = ["#1B998B", "#7798AB", "#C3DBC5", "#E8DCB9", "#F2CEE6"];
+    const colors = ["#9F1412", "#242D3C", "#168851", "#247058", "#2E372F", "#170312", "#33032F", "#531253", "#4D5859", "#328555" ];
 
     const mycolor = colors[Math.floor(Math.random() * colors.length)];
     console.log(mycolor)
