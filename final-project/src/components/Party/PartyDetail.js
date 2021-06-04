@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 
 import { useParams } from "react-router-dom";
 import { FaCalendar } from 'react-icons/fa'
@@ -172,7 +172,6 @@ export default function SimpleTabs() {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   const handleSubmit = async e => {
 
 
@@ -202,8 +201,7 @@ export default function SimpleTabs() {
       console.log(error);
     });
   }
-
-  handleSubmit()
+  useEffect(handleSubmit, [])
 
 
   var date = new Date(time);
