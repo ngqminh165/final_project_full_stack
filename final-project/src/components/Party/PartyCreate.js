@@ -102,8 +102,7 @@ export default function SignInSide() {
 
     var timestamp = date.getTime();
     e.preventDefault();
-    setShowSuccess(false)
-    setShowError(false)
+    
 
     var data = JSON.stringify({
       "party_title": party_title,

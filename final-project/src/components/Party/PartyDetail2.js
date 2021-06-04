@@ -1,9 +1,9 @@
-import React, {useState} from "react"
+import React from "react"
 
 import { useParams } from "react-router-dom";
 
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+
 
 import MapWrapper from "../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
@@ -49,18 +49,9 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
-var adttendee = [
-  "Minh Nguyen",
-  "Cody Green",
-  "Tuan Dinh"
-]
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -108,39 +99,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const useNest = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-}));
+
 
 
 export default function SimpleTabs() {
   const { id } = useParams();
 
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [email, setEmail] = useState();
-  const [title, setTitle] = useState();
-  const [address, setLocation] = useState();
-  const [time, setTime] = useState();
-  const [description, setDescription] = useState();
-  const [invited, setInvited] = useState();
-  const [name, setName] = useState();
-  const [initial, setInitial] = useState();
-  const [attendee, setAdd] = useState({})
-  const history = useHistory();
-  const [expanded, setExpanded] = useState(false);
-  const nestList = useNest();
+  const [value] = React.useState(0);
+  
+  
+  
+  
+  
+  
+  
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  
 
   const handleSubmit = async e => {
 
@@ -156,13 +131,9 @@ export default function SimpleTabs() {
   
     axios(config)
     .then(function (response) {
-      setTitle(response.data.party_title);
-      setLocation(response.data.Address);
-      setTime(response.data.Celebrate_date);
-      setDescription(response.data.Description);
-      setInvited(response.data.invitedList.length);
-      setName(response.data.host.username);
-      setInitial(response.data.host.username.charAt(0));
+      
+      
+      
       //setAdd(response.data.invitedList);
       //console.log(attendee);
       
@@ -175,42 +146,12 @@ export default function SimpleTabs() {
   handleSubmit()
 
 
-  var date = new Date(time);
-  var timestamp = date.getTime();
   
-  var time2 = "Date: "+(date.getMonth()+1)+
-  "/"+(date.getDate())+
-  "/"+date.getFullYear();
-  var time3;
-  if(date.getHours() < 10){
-    if(date.getMinutes() < 10){
-      time3 = "Time: " + "0"+ date.getHours()+
-      ":0"+date.getMinutes();
-    }
-    else{
-      time3 = "Time: " + "0"+ date.getHours()+
-      ":"+date.getMinutes();
-    }
-  }
-  else {
-    if(date.getMinutes() < 10){
-      time3 = "Time: " + date.getHours()+
-      ":0"+date.getMinutes();
-    }
-    else{
-      time3 = "Time: " + date.getHours()+
-      ":"+date.getMinutes();
-    }
-  }
-  
-  time2 = time2 + "\n" + time3;
  
  
-  const [open, setOpen] = React.useState(false);
+ 
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  
 
 
   return (

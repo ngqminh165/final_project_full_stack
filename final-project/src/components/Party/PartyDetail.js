@@ -79,12 +79,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -146,7 +141,7 @@ const useNest = makeStyles((theme) => ({
 
 export default function SimpleTabs() {
   
-  let covid_data = {
+  /*let covid_data = {
     labels: [
       'Cases',
       'Vaccinations Initiated',
@@ -165,11 +160,11 @@ export default function SimpleTabs() {
 
     }]
 
-  };
+  };*/
   const { id } = useParams();
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [email, setEmail] = useState();
+ 
   const [title, setTitle] = useState();
   const [address, setLocation] = useState();
   const [zipcode, setZipcode] = useState();
@@ -178,8 +173,8 @@ export default function SimpleTabs() {
   const [invited, setInvited] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
-  const [attendees, setAdd] = useState({})
-  const history = useHistory();
+  //const [attendees, setAdd] = useState({})
+  //const history = useHistory();
   const [expanded, setExpanded] = useState(false);
   const [covidData, setCovidData] = useState({});
 
@@ -187,9 +182,9 @@ export default function SimpleTabs() {
   const nestList = useNest();
   const covidApiKey = '4788701cc7ad4407b055d07a4c8466f1'
 
-  const handleExpandClick = () => {
+  /*const handleExpandClick = () => {
     setExpanded(!expanded);
-  };
+  };*/
 
   // Get Covid Data
   const getCovidData = (url) => {
