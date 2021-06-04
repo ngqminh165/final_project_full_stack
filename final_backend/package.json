@@ -17,6 +17,8 @@
     "documentation": "^13.2.5",
     "jwt-decode": "^3.1.2",
     "knex": "0.21.18",
+    "pg": "^8.6.0",
+    "pg-connection-string": "^2.5.0",
     "react-material-ui-carousel": "^2.2.6",
     "sqlite3": "5.0.0",
     "strapi": "3.6.2",
@@ -24,12 +26,12 @@
     "strapi-connector-bookshelf": "3.6.2",
     "strapi-plugin-content-manager": "3.6.2",
     "strapi-plugin-content-type-builder": "3.6.2",
-    "strapi-plugin-documentation": "3.6.2",
+    "strapi-plugin-documentation": "^3.6.2",
     "strapi-plugin-email": "3.6.2",
     "strapi-plugin-i18n": "3.6.2",
     "strapi-plugin-upload": "3.6.2",
     "strapi-plugin-users-permissions": "3.6.2",
-    "strapi-utils": "3.6.2",
+    "strapi-utils": "^3.6.2",
     "yarn": "^1.22.10"
   },
   "author": {
