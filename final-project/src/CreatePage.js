@@ -146,7 +146,7 @@ export default function SignInSide() {
 
         var config = {
         method: 'post',
-        url: 'http://localhost:1337/parties',
+        url: process.env.REACT_APP_API_URL +'parties',
         headers: { 
             'Authorization': 'Bearer ' + localStorage.getItem('JWT'), 
             'Content-Type': 'application/json'

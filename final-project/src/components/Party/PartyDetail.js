@@ -1,18 +1,12 @@
 import React, {useState, useEffect} from "react"
 
 import { useParams } from "react-router-dom";
-import { FaCalendar } from 'react-icons/fa'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
-import ShowMoreText from 'react-show-more-text';
 import MapWrapper from "./../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
 import { darken, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -27,6 +21,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import PeopleIcon from '@material-ui/icons/People';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -35,6 +30,8 @@ import Avatar from '@material-ui/core/Avatar';
 import yellow from "@material-ui/core/colors/yellow";
 import { blueGrey, grey, lightBlue, lightGreen} from "@material-ui/core/colors";
 import { dark, light } from "@material-ui/core/styles/createPalette";
+import { green } from '@material-ui/core/colors';
+import { pink } from '@material-ui/core/colors';
 import {
   EmailShareButton,
   EmailIcon,
@@ -152,6 +149,8 @@ const useNest = makeStyles((theme) => ({
 
 
 export default function SimpleTabs() {
+  let namesList=[];
+
   const { id } = useParams();
 
   const classes = useStyles();
@@ -164,24 +163,28 @@ export default function SimpleTabs() {
   const [invited, setInvited] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
-  const [attendee, setAdd] = useState({})
+  const [attendees, setAdd] = useState({})
   const history = useHistory();
   const [expanded, setExpanded] = useState(false);
+  const [invitedList, setInvitedList] = useState([]);
+
   const nestList = useNest();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  
   const handleSubmit = async e => {
 
 
     var config = {
       method: 'get',
-      url: 'http://localhost:1337/parties/' + id,
+      url: process.env.REACT_APP_API_URL +'parties/' + id,
+      /*
       headers: { 
         'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
         'Content-Type': 'application/json'
-      }
+      }*/
     };
   
     axios(config)
@@ -190,12 +193,20 @@ export default function SimpleTabs() {
       setLocation(response.data.Address);
       setTime(response.data.Celebrate_date);
       setDescription(response.data.Description);
-      setInvited(response.data.invitedList.length);
+      setInvited(response.data.invitedList.length==1? response.data.invitedList.length + " Buddy": response.data.invitedList.length + " Buddies");
       setName(response.data.host.username);
       setInitial(response.data.host.username.charAt(0));
-      //setAdd(response.data.invitedList);
-      //console.log(attendee);
-      
+
+      setInvitedList(response.data.invitedList.map(function(attendee){
+                      return (
+                      <ListItem button className={classes.nested}>
+                          <ListItemIcon>
+                            <PersonRoundedIcon color="secondary"/>
+                          </ListItemIcon>
+                        <ListItemText primary={attendee.username} />
+                      </ListItem>
+                    )
+                  }))
     })
     .catch(function (error) { 
       console.log(error);
@@ -244,15 +255,6 @@ export default function SimpleTabs() {
 
   return (
     <Grid item xs={12} container component="main" className={classes.root}>
-
-
-      {/* <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Party" {...a11yProps(0)} />
-          <Tab label="Covid" {...a11yProps(1)} />
-          <Tab label="Weather" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar> */}
       <TabPanel value={value} index={0}>
       <Card className={classes.gridStyle}>
       <CardHeader
@@ -278,12 +280,6 @@ export default function SimpleTabs() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-      
-        {/* <IconButton aria-label="add to favorites"  >
-            {invited}
-          <PersonRoundedIcon/>
-          
-        </IconButton> */}
         <List
           component="nav"
           aria-labelledby="nested-list-subheader"
@@ -291,74 +287,45 @@ export default function SimpleTabs() {
             >   
         <ListItem button onClick={handleClick}>
         <ListItemIcon>
-          {invited}
-          <PersonRoundedIcon/>
+          <PeopleIcon style={{ color: green[500] }}/>
         </ListItemIcon>
-        <ListItemText primary="Buddies" />
+        <ListItemText primary={invited}/>
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          
-            <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary={"Minh Nguyen"} />
-            
-            </ListItem>
-            <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            
-            <ListItemText primary={"Cody Green"} />
-            
-            </ListItem>
-            <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            
-            <ListItemText primary={"Tuan Dinh"} />
-            </ListItem>
+          {invitedList}
         </List>
       </Collapse>
       </List>        
-
         <FacebookShareButton 
-          url={'http://localhost:3000/partydetail/' + id}
+          url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}
           >
           <IconButton aria-label="share">
             <FacebookIcon size={32} round={true}/>
           </IconButton>
         </FacebookShareButton>
-
-        <EmailShareButton url={'http://localhost:3000/partydetail/' + id}>
+        <EmailShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
           <IconButton aria-label="share">
             <EmailIcon size={32} round={true}/>
           </IconButton>
         </EmailShareButton>
-
-        <TwitterShareButton url={'http://localhost:3000/partydetail/' + id}>
+        <TwitterShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
           <IconButton aria-label="share">
             <TwitterIcon size={32} round={true}/>
           </IconButton>
         </TwitterShareButton>
         
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent>
           <Typography paragraph>{description}
           </Typography>
         </CardContent>
-      {/* </Collapse> */}
       <CardActions disableSpacing>
         <Button variant="contained" color="primary">
              Join with Us
         </Button>
       </CardActions>
-
     </Card>
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -367,13 +334,9 @@ export default function SimpleTabs() {
       <TabPanel value={value} index={2}>
         <Weather></Weather>
       </TabPanel>
-
-
       <TabPanel value={value} index={0}>
         <Card className={classes.root}>
           <Grid container xs={12}  direction="row" justify="space-between" alignItems="center" className={classes.gridStyle}>
-        
-          
             <Grid item xs={6}>
               <header className="d-flex justify-content-center align-items-center">
                 <h2 className={classes.h1}>Covid Calculation</h2>
@@ -387,14 +350,10 @@ export default function SimpleTabs() {
               </header>
               <Weather></Weather>
             </Grid>
-          
-          
           </Grid>
         </Card>
       </TabPanel>
-
-      {/* <TabPanel value={value} index={0}> */}
-        <Card className={classes.root}>
+                <Card className={classes.root}>
           <Grid container xs={12}  className={classes.gridStyle}>
             <Grid item xs={12}>
               <header className="d-flex justify-content-center align-items-center">
@@ -404,7 +363,6 @@ export default function SimpleTabs() {
             </Grid>
           </Grid>
         </Card>
-      {/* </TabPanel> */}
       
     </Grid>
     

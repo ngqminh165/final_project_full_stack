@@ -82,7 +82,7 @@ export default function SignUp() {
       setShowSuccess(false)
       setShowError(false)
 
-      axios.post( 'http://localhost:1337/auth/local/register', {
+      axios.post( process.env.REACT_APP_API_URL +'auth/local/register', {
         "username": username,
         "email": email,
         "password": password,

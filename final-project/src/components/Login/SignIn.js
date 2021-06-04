@@ -86,7 +86,7 @@ export default function SignInSide() {
       setShowSuccess(false)
       setShowError(false)
 
-      axios.post( 'http://localhost:1337/auth/local', {
+      axios.post( process.env.REACT_APP_API_URL +'auth/local', {
         "identifier": email,
         "password": password
       })

@@ -178,7 +178,7 @@ export default function SimpleTabs() {
 
     var config = {
       method: 'get',
-      url: 'http://localhost:1337/parties/' + id,
+      url: process.env.REACT_APP_API_URL +'parties/' + id,
       headers: { 
         'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
         'Content-Type': 'application/json'

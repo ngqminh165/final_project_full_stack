@@ -12,7 +12,7 @@ export default function LoginForm({setToken}) {
 
         e.preventDefault();
         console.log(username);
-        const token = await axios.post( 'http://localhost:1337/auth/local', {
+        const token = await axios.post( process.env.REACT_APP_API_URL +'auth/local', {
             "identifier": username,
             "password": password
         });

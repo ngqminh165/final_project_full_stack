@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
-//import PropTypes from 'prop-types'
 import PartyHeader from './PartyHeader'
 import styled from 'styled-components'
-//import PartyFooter from '../partyFooter';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
@@ -69,14 +67,11 @@ const Wrapper = styled.div`
 `;
 
 
-
-
 class PartyInfo extends PureComponent {
 
   handleClick = (id) => {
     const { history } = this.props;
     if(history) history.push('/partydetail/' + id);
-    console.log("clicked")
    }
 
 state = {
@@ -84,29 +79,18 @@ state = {
     error: null,
   };
 
-     
-
   // Fetch your restaurants immediately after the component is mounted
   componentDidMount = async () => {
-
-  /*const jwt = localStorage.getItem('JWT')
-  const { data } = await axios.get('http://localhost:1337/parties', {
-    headers: {
-      Authorization:
-        'Bearer' + {jwt},
-    },
-  });*/
     
     try {
-      const response = await axios.get('http://localhost:1337/parties');
+      console.log(process.env.REACT_APP_API_URL) 
+      const response = await axios.get(process.env.REACT_APP_API_URL + 'parties');
       this.setState({ restaurants: response.data });
       console.log(response.data)
     } catch (error) {
       this.setState({ error });
     }
   };
-  
-
   
 
   render() {
@@ -146,12 +130,7 @@ state = {
             </div>
       </Wrapper>
       </Grid>
-           
-     
     ))
-
-    
-    
     return ( 
       
       restaurant !== null ?
@@ -165,26 +144,3 @@ state = {
 }
 
 export default withRouter(PartyInfo)
-
-
-
-
-/*const PartyCard = props => {
-    return (
-        <Wrapper>
-            <div className="party-highlight__card p-0 m-2">
-                <PartyHeader zipcode="" />
-                <div className="party-title party-highlight__card-title">
-                    <p>Hang out with Us</p>
-                </div>
-                <div className="party-highlight__card-location">
-                    2207 NE 131 St Ave Portland OR
-                </div>
-                <div className="party-highlight__card-description d-md-block">
-                    {props.description}
-                </div>
-            </div>
-        </Wrapper>
-    )
-}
-export default PartyCard*/
