@@ -1,6 +1,6 @@
 // Import React and React DOM
 import * as React from 'react'
-import { render } from 'react-dom'
+
 
 // Import Google Map component
 import GoogleMapComponentWithMarker from './GoogleMap'

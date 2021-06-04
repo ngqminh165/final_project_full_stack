@@ -1,57 +1,26 @@
 import React, {useState} from "react"
 
 import { useParams } from "react-router-dom";
-import { FaCalendar } from 'react-icons/fa'
+
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import clsx from 'clsx';
-import Button from '@material-ui/core/Button';
-import ShowMoreText from 'react-show-more-text';
+
 import MapWrapper from "../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
-import { darken, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import {  makeStyles } from '@material-ui/core/styles';
+
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+
 import CovidChart from '../Chartjs/Chart'
 import Weather from "../Weather/Weather";
-import GoogleMapComponentWithMarker from "../GoogleMap/GoogleMap"
-import Toolbar from '@material-ui/core/Toolbar';
+
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
-import Avatar from '@material-ui/core/Avatar';
-import yellow from "@material-ui/core/colors/yellow";
-import { blueGrey, grey, lightBlue, lightGreen} from "@material-ui/core/colors";
-import { dark, light } from "@material-ui/core/styles/createPalette";
-import {
-  EmailShareButton,
-  EmailIcon,
-  FacebookIcon,
-  FacebookShareButton,
-  TwitterShareButton,
-  TwitterIcon
-} from "react-share";
-import Description from "@material-ui/icons/Description";
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import StarBorder from '@material-ui/icons/StarBorder';
-import styled from 'styled-components'
+
+import {  lightBlue} from "@material-ui/core/colors";
+
+
 
 
 function TabPanel(props) {
@@ -178,7 +147,7 @@ export default function SimpleTabs() {
 
     var config = {
       method: 'get',
-      url: process.env.REACT_APP_API_URL +'parties/' + id,
+      url: 'http://localhost:1337/parties/' + id,
       headers: { 
         'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
         'Content-Type': 'application/json'
@@ -208,7 +177,7 @@ export default function SimpleTabs() {
 
   var date = new Date(time);
   var timestamp = date.getTime();
-  var date2 = new Date(timestamp);
+  
   var time2 = "Date: "+(date.getMonth()+1)+
   "/"+(date.getDate())+
   "/"+date.getFullYear();

@@ -88,8 +88,7 @@ export default function SignInSide() {
   const [Celebrate_date, setCele] = useState();
   //const [ID, setID] = useState();
   const [Time, setTime] = useState();
-  const [showError, setShowError] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
+ 
   const history = useHistory();
 
   function handleSubmit (e) {
@@ -112,8 +111,7 @@ export default function SignInSide() {
 
       var timestamp = date.getTime();
       e.preventDefault();
-      setShowSuccess(false)
-      setShowError(false)
+      
 
       var data = JSON.stringify({
         "party_title": party_title,
@@ -140,14 +138,14 @@ export default function SignInSide() {
         alert("test");
         alert(JSON.stringify(response.data));
         console.log(JSON.stringify(response.data));
-        setShowSuccess(true)
+        
 
         history.push('/partydetail/' + response.data.id);
       })
       .catch(function (error) {
         alert(error);
         console.log(error);
-        setShowError(true)
+        
       });
     }
   

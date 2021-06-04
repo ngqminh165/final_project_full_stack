@@ -5,14 +5,13 @@ import * as React from 'react'
 
 // Import necessary components for React Google Maps
 import {
-  MarkerClusterer,
   Circle,
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker
 } from 'react-google-maps'
-const apiKey = process.env.REACT_APP_MAP_API_KEY;
+
 
 // Import custom styles to customize the style of Google Map
 const styles = require('./mapstyle.json')

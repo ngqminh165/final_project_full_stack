@@ -6,15 +6,15 @@ import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import MapWrapper from "./../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
-import { darken, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+
 import CovidChart from './../Chartjs/Chart'
 import Weather from "../Weather/Weather";
-import GoogleMapComponentWithMarker from "./../GoogleMap/GoogleMap"
-import Toolbar from '@material-ui/core/Toolbar';
+
+
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -22,16 +22,16 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import PeopleIcon from '@material-ui/icons/People';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+
+
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import Avatar from '@material-ui/core/Avatar';
-import yellow from "@material-ui/core/colors/yellow";
-import { blueGrey, grey, lightBlue, lightGreen } from "@material-ui/core/colors";
-import { dark, light } from "@material-ui/core/styles/createPalette";
+
+import { lightBlue } from "@material-ui/core/colors";
+
 import { green } from '@material-ui/core/colors';
-import { pink } from '@material-ui/core/colors';
+
 //import { fibs2zip } from "../../data/zip"
 
 import {
@@ -42,15 +42,15 @@ import {
   TwitterShareButton,
   TwitterIcon
 } from "react-share";
-import Description from "@material-ui/icons/Description";
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
-import StarBorder from '@material-ui/icons/StarBorder';
-import styled from 'styled-components'
+
+
 
 
 function TabPanel(props) {
@@ -145,7 +145,7 @@ const useNest = makeStyles((theme) => ({
 
 
 export default function SimpleTabs() {
-  let namesList = [];
+  
   let covid_data = {
     labels: [
       'Cases',
