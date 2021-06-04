@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parties",
+  "info": {
+    "name": "parties",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "party_title": {
+      "type": "string",
+      "default": "Minh's Birthday",
+      "required": false
+    },
+    "Address": {
+      "type": "string",
+      "default": "107879 NE Bummer St"
+    },
+    "Zipcode": {
+      "type": "integer",
+      "default": 97220
+    },
+    "Description": {
+      "type": "text",
+      "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    "Celebrate_date": {
+      "type": "datetime",
+      "default": "2021-06-01T07:30:00.000Z"
+    },
+    "host": {
+      "collection": "user",
+      "via": "parties",
+      "plugin": "users-permissions",
+      "dominant": true
+    },
+    "users_permissions_users": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "attendee",
+      "dominant": true
+    }
+  }
+}
