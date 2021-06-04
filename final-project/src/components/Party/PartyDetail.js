@@ -224,7 +224,9 @@ export default function SimpleTabs() {
       })
   };
 
+  let isLoad = true;
   const handleSubmit = async e => {
+    if (isLoad) {
     var config = {
       method: 'get',
       url: process.env.REACT_APP_API_URL + 'parties/' + id,
@@ -265,8 +267,10 @@ export default function SimpleTabs() {
       .catch(function (error) {
         console.log(error);
       });
+      isLoad = false;
+    }
   }
-  useEffect(handleSubmit, [])
+  useEffect(handleSubmit, [isLoad])
 
   var date = new Date(time);
   var timestamp = date.getTime();
