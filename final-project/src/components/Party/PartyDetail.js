@@ -230,11 +230,10 @@ export default function SimpleTabs() {
     var config = {
       method: 'get',
       url: process.env.REACT_APP_API_URL + 'parties/' + id,
-      /*
       headers: { 
         'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
         'Content-Type': 'application/json'
-      }*/
+      }
     };
 
     axios(config)
@@ -250,10 +249,10 @@ export default function SimpleTabs() {
 
         let zip = fibs2zip()
         let fibs = zip[response.data.Zipcode]
-
         let covid_url = `https://api.covidactnow.org/v2/county/${fibs}.json?apiKey=${covidApiKey}`;
         console.log(covid_url)
         getCovidData(covid_url)
+    
 
         setInvitedList(response.data.invitedList.map(function (attendee) {
           return (
