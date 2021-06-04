@@ -32,7 +32,7 @@ import { blueGrey, grey, lightBlue, lightGreen } from "@material-ui/core/colors"
 import { dark, light } from "@material-ui/core/styles/createPalette";
 import { green } from '@material-ui/core/colors';
 import { pink } from '@material-ui/core/colors';
-import { fibs2zip } from "../../data/zip"
+//import { fibs2zip } from "../../data/zip"
 
 import {
   EmailShareButton,
@@ -225,8 +225,6 @@ export default function SimpleTabs() {
   };
 
   const handleSubmit = async e => {
-
-
     var config = {
       method: 'get',
       url: process.env.REACT_APP_API_URL + 'parties/' + id,
@@ -235,7 +233,6 @@ export default function SimpleTabs() {
         'Content-Type': 'application/json'
       }
     };
-
     axios(config)
       .then(function (response) {
         setTitle(response.data.party_title);
@@ -247,12 +244,12 @@ export default function SimpleTabs() {
         setInitial(response.data.host.username.charAt(0));
         setZipcode(response.data.Zipcode)
 
-        let zip = fibs2zip()
-        let fibs = zip[response.data.Zipcode]
+        //let zip = fibs2zip()
+        //let fibs = zip[response.data.Zipcode]
+        let fibs = 41051
         let covid_url = `https://api.covidactnow.org/v2/county/${fibs}.json?apiKey=${covidApiKey}`;
         console.log(covid_url)
         getCovidData(covid_url)
-    
 
         setInvitedList(response.data.invitedList.map(function (attendee) {
           return (
@@ -270,7 +267,6 @@ export default function SimpleTabs() {
       });
   }
   useEffect(handleSubmit, [])
-
 
   var date = new Date(time);
   var timestamp = date.getTime();

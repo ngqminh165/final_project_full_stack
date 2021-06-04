@@ -7,8 +7,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -68,8 +66,6 @@ export default function SignUp() {
   const [username, setUserName] = useState();
 
   const {setUserNameDisplay} = useContext(LoginContext)
-  const [showError, setShowError] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
   const history = useHistory();
 
   const handleSubmit = async e => {
@@ -79,8 +75,6 @@ export default function SignUp() {
       console.log("password: " + password)
 
       e.preventDefault();
-      setShowSuccess(false)
-      setShowError(false)
 
       axios.post( process.env.REACT_APP_API_URL +'auth/local/register', {
         "username": username,
@@ -91,7 +85,6 @@ export default function SignUp() {
       })
       .then(response => {
         console.log(response)
-        setShowSuccess(true)
         localStorage.setItem('JWT', response.data.jwt);
         localStorage.setItem('User', JSON.stringify(response.data.user));
         setUserNameDisplay(response.data.user.username)
@@ -99,7 +92,6 @@ export default function SignUp() {
 
       })
       .catch(error => {
-        setShowError(true)
       });
     }
   return (

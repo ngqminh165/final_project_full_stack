@@ -5,13 +5,10 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
 import AddToQueueIcon from '@material-ui/icons/AddToQueue';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -22,8 +19,6 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
-import { any, string } from "prop-types";
-import { TextareaAutosize } from "@material-ui/core";
 import DescriptionIcon from '@material-ui/icons/Description';
 import Carousel from 'react-material-ui-carousel'
 
@@ -41,19 +36,13 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        CELLABORATE
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
-
-const section = {
-  height: "100%",
-  backgroundImage: 'cover'
-};
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,7 +92,8 @@ export default function SignInSide() {
   const [showSuccess, setShowSuccess] = useState(false)
   const history = useHistory();
 
-  const handleSubmit = async e => {
+  function handleSubmit (e) {
+      
       console.log(localStorage.getItem('JWT'));
       console.log("party_title: " + party_title);
       console.log("Address: " + Address);
@@ -114,24 +104,17 @@ export default function SignInSide() {
       user_info=JSON.parse(user_info)
       console.log("ID: " + user_info.id);
       console.log("Time: " + Time);
-
       console.log(Celebrate_date + " " + Time);
-
       var timeParts = Time.split(':');
-      var dateParts = Celebrate_date.split('-'),
-      date;
+      var dateParts = Celebrate_date.split('-')
 
-      date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1]);
+      var date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1]);
 
       var timestamp = date.getTime();
-      console.log(timestamp); //1379426880000
-      console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
-
       e.preventDefault();
       setShowSuccess(false)
       setShowError(false)
 
-      var axios = require('axios');
       var data = JSON.stringify({
         "party_title": party_title,
         "Address": Address,
@@ -143,31 +126,29 @@ export default function SignInSide() {
         }
       });
 
-        var config = {
-        method: 'post',
-        url: process.env.REACT_APP_API_URL +'parties',
-        headers: { 
-            'Authorization': 'Bearer ' + localStorage.getItem('JWT'), 
-            'Content-Type': 'application/json'
-        },
-        data : data
+      var config = {
+      method: 'post',
+      url: process.env.REACT_APP_API_URL +'parties',
+      headers: { 
+          'Authorization': 'Bearer ' + localStorage.getItem('JWT'), 
+          'Content-Type': 'application/json'
+      },
+      data : data
     };
-        axios(config)
-        .then(function (response) {
-          alert("test")
-          alert(JSON.stringify(response.data))
-          console.log(JSON.stringify(response.data));
-          setShowSuccess(true)
+    axios(config)
+      .then(function (response) {
+        alert("test");
+        alert(JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data));
+        setShowSuccess(true)
 
-          history.push("/partydetail/" + response.data.id)
-        })
-        .catch(function (error) {
-          alert("test")
-          alert((error))
-
-          console.log(error);
-          setShowError(true)
-        });
+        history.push('/partydetail/' + response.data.id);
+      })
+      .catch(function (error) {
+        alert(error);
+        console.log(error);
+        setShowError(true)
+      });
     }
   
   return (

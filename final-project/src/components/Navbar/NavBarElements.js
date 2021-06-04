@@ -1,8 +1,7 @@
 import Nav from "react-bootstrap/Nav"
-import NavDropdown from "react-bootstrap/NavDropdown"
 import Navbar from "react-bootstrap/Navbar"
 import styled from "styled-components"
-import React, {useState, useContext} from "react"
+import React, {useContext} from "react"
 import {LoginContext} from "../../Contexts/LoginContext" 
 
 const navbar = { backgroundColor: "#563d7c" }

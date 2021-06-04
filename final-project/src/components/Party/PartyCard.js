@@ -3,7 +3,6 @@ import PartyHeader from './PartyHeader'
 import styled from 'styled-components'
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import { useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
 const Wrapper = styled.div`
@@ -100,10 +99,6 @@ state = {
       return <div>An error occured: {error.message}</div>;
     }
 
-    const colors = ["0d1b1e", "7798AB", "C3DBC5", "E8DCB9", "F2CEE6"];
-
-    const random = Math.floor(Math.random() * colors.length);
-
     const parties = this.state.list_parties.map(party => (
 
          
@@ -111,9 +106,7 @@ state = {
       <Wrapper  onClick={this.handleClick.bind(this, party.id)} style={{cursor: 'pointer'}}>
 
             <div className="party-highlight__card p-0 m-2">
-                <PartyHeader host={party.host} zipcode="" color={
-                  
-                  party.id %2 ==0? 'red': 'blue'}/>
+                <PartyHeader host={party.host} />
                 
                 <div className="party-title party-highlight__card-title">
                     <p>{party.party_title}</p>

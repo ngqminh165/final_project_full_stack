@@ -1,16 +1,7 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
-//import PartyHeader from './PartyHeader'
 import styled from 'styled-components'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import PartyCard from './PartyCard'
-//import PartyFooter from '../partyFooter';
 
-const descriptionArray = [
-"This weekend, we will CELLABORATE at Tuan's House. <br/>Comming and Join with US. Summer is Comming. <br/>Do not forget to bring your food. I have beer a lot", 
-"This weekend, we will CELLABORATE at Tuan's House. <br/>Comming and Join with US. Summer is Comming. <br/>Do not forget to bring your food. I have beer a lot,This weekend, we will CELLABORATE at Tuan's House. <br/>Comming and Join with US. Summer is Comming. <br/>Do not forget to bring your food. I have beer a lot"]
 const Wrapper = styled.div`
     .party-highlight__card {
         padding: 24px 15px 26px 16px;
