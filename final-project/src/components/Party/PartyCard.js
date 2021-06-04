@@ -75,17 +75,16 @@ class PartyInfo extends PureComponent {
    }
 
 state = {
-    restaurants: [],
+    list_parties: [],
     error: null,
   };
 
-  // Fetch your restaurants immediately after the component is mounted
   componentDidMount = async () => {
     
     try {
       console.log(process.env.REACT_APP_API_URL) 
       const response = await axios.get(process.env.REACT_APP_API_URL + 'parties');
-      this.setState({ restaurants: response.data });
+      this.setState({ list_parties: response.data });
       console.log(response.data)
     } catch (error) {
       this.setState({ error });
@@ -95,7 +94,7 @@ state = {
 
   render() {
     
-    const { error, restaurant } = this.state;
+    const { error, party } = this.state;
     // Print errors if any
     if (error) {
       return <div>An error occured: {error.message}</div>;
@@ -105,25 +104,25 @@ state = {
 
     const random = Math.floor(Math.random() * colors.length);
 
-    const parties = this.state.restaurants.map(restaurant => (
+    const parties = this.state.list_parties.map(party => (
 
          
     <Grid item xs={4} >
-      <Wrapper  onClick={this.handleClick.bind(this, restaurant.id)} style={{cursor: 'pointer'}}>
+      <Wrapper  onClick={this.handleClick.bind(this, party.id)} style={{cursor: 'pointer'}}>
 
             <div className="party-highlight__card p-0 m-2">
-                <PartyHeader host={restaurant.host} zipcode="" color={
+                <PartyHeader host={party.host} zipcode="" color={
                   
-                  restaurant.id %2 ==0? 'red': 'blue'}/>
+                  party.id %2 ==0? 'red': 'blue'}/>
                 
                 <div className="party-title party-highlight__card-title">
-                    <p>{restaurant.party_title}</p>
+                    <p>{party.party_title}</p>
                 </div>
                 <div className="party-highlight__card-location">
-                    <p>{restaurant.Address}</p>
+                    <p>{party.Address}</p>
                 </div>
                 <div className="party-highlight__card-description d-md-auto">
-                    {restaurant.Description}
+                    {party.Description}
 
                 </div>
 
@@ -133,7 +132,7 @@ state = {
     ))
     return ( 
       
-      restaurant !== null ?
+      party !== null ?
           <Grid container spacing={24}>        
              {parties}        
           </Grid>

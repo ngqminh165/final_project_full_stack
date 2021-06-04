@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 
 import { useParams } from "react-router-dom";
 import axios from 'axios';
@@ -28,10 +28,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import Avatar from '@material-ui/core/Avatar';
 import yellow from "@material-ui/core/colors/yellow";
-import { blueGrey, grey, lightBlue, lightGreen} from "@material-ui/core/colors";
+import { blueGrey, grey, lightBlue, lightGreen } from "@material-ui/core/colors";
 import { dark, light } from "@material-ui/core/styles/createPalette";
 import { green } from '@material-ui/core/colors';
 import { pink } from '@material-ui/core/colors';
+import { fibs2zip } from "../../data/zip"
+
 import {
   EmailShareButton,
   EmailIcon,
@@ -84,12 +86,6 @@ function a11yProps(index) {
   };
 }
 
-var adttendee = [
-  "Minh Nguyen",
-  "Cody Green",
-  "Tuan Dinh"
-]
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -97,14 +93,14 @@ const useStyles = makeStyles((theme) => ({
 
   h1: {
     color: lightBlue[800],
-     
+
   },
 
   h2: {
     color: lightBlue[800],
-    marginTop: 120 
+    marginTop: 120
   },
-  
+
 
   paper: {
     margin: theme.spacing(8, 4),
@@ -149,15 +145,34 @@ const useNest = makeStyles((theme) => ({
 
 
 export default function SimpleTabs() {
-  let namesList=[];
+  let namesList = [];
+  let covid_data = {
+    labels: [
+      'Cases',
+      'Vaccinations Initiated',
+      'vaccinations Completed'
+    ],
 
+    datasets: [{
+
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(75, 192, 192)',
+        'rgb(255, 205, 86)',
+      ],
+      borderWidth: 1,
+      data: [37221, 397827, 258219]
+
+    }]
+
+  };
   const { id } = useParams();
-
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [email, setEmail] = useState();
   const [title, setTitle] = useState();
   const [address, setLocation] = useState();
+  const [zipcode, setZipcode] = useState();
   const [time, setTime] = useState();
   const [description, setDescription] = useState();
   const [invited, setInvited] = useState();
@@ -166,51 +181,94 @@ export default function SimpleTabs() {
   const [attendees, setAdd] = useState({})
   const history = useHistory();
   const [expanded, setExpanded] = useState(false);
-  const [invitedList, setInvitedList] = useState([]);
+  const [covidData, setCovidData] = useState({});
 
+  const [invitedList, setInvitedList] = useState([]);
   const nestList = useNest();
+  const covidApiKey = '4788701cc7ad4407b055d07a4c8466f1'
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
+
+  // Get Covid Data
+  const getCovidData = (url) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((item) => {
+        let covid_data = {
+          labels: [
+            'Cases',
+            'Vaccinations Initiated',
+            'vaccinations Completed'
+          ],
+          datasets: [{
+
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+            ],
+            borderWidth: 1,
+            data: [item.actuals.cases,
+            item.actuals.vaccinationsInitiated,
+            item.actuals.vaccinationsCompleted]
+
+          }]
+        };
+        setCovidData(covid_data)
+
+      })
+      .catch((error) => console.log("Error"))
+      .finally(() => {
+      })
+  };
+
   const handleSubmit = async e => {
 
 
     var config = {
       method: 'get',
-      url: process.env.REACT_APP_API_URL +'parties/' + id,
+      url: process.env.REACT_APP_API_URL + 'parties/' + id,
       /*
       headers: { 
         'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
         'Content-Type': 'application/json'
       }*/
     };
-  
-    axios(config)
-    .then(function (response) {
-      setTitle(response.data.party_title);
-      setLocation(response.data.Address);
-      setTime(response.data.Celebrate_date);
-      setDescription(response.data.Description);
-      setInvited(response.data.invitedList.length==1? response.data.invitedList.length + " Buddy": response.data.invitedList.length + " Buddies");
-      setName(response.data.host.username);
-      setInitial(response.data.host.username.charAt(0));
 
-      setInvitedList(response.data.invitedList.map(function(attendee){
-                      return (
-                      <ListItem button className={classes.nested}>
-                          <ListItemIcon>
-                            <PersonRoundedIcon color="secondary"/>
-                          </ListItemIcon>
-                        <ListItemText primary={attendee.username} />
-                      </ListItem>
-                    )
-                  }))
-    })
-    .catch(function (error) { 
-      console.log(error);
-    });
+    axios(config)
+      .then(function (response) {
+        setTitle(response.data.party_title);
+        setLocation(response.data.Address);
+        setTime(response.data.Celebrate_date);
+        setDescription(response.data.Description);
+        setInvited(response.data.invitedList.length == 1 ? response.data.invitedList.length + " Buddy" : response.data.invitedList.length + " Buddies");
+        setName(response.data.host.username);
+        setInitial(response.data.host.username.charAt(0));
+        setZipcode(response.data.Zipcode)
+
+        let zip = fibs2zip()
+        let fibs = zip[response.data.Zipcode]
+
+        let covid_url = `https://api.covidactnow.org/v2/county/${fibs}.json?apiKey=${covidApiKey}`;
+        console.log(covid_url)
+        getCovidData(covid_url)
+
+        setInvitedList(response.data.invitedList.map(function (attendee) {
+          return (
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <PersonRoundedIcon color="secondary" />
+              </ListItemIcon>
+              <ListItemText primary={attendee.username} />
+            </ListItem>
+          )
+        }))
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
   useEffect(handleSubmit, [])
 
@@ -218,34 +276,34 @@ export default function SimpleTabs() {
   var date = new Date(time);
   var timestamp = date.getTime();
   var date2 = new Date(timestamp);
-  var time2 = "Date: "+(date.getMonth()+1)+
-  "/"+(date.getDate())+
-  "/"+date.getFullYear();
+  var time2 = "Date: " + (date.getMonth() + 1) +
+    "/" + (date.getDate()) +
+    "/" + date.getFullYear();
   var time3;
-  if(date.getHours() < 10){
-    if(date.getMinutes() < 10){
-      time3 = "Time: " + "0"+ date.getHours()+
-      ":0"+date.getMinutes();
+  if (date.getHours() < 10) {
+    if (date.getMinutes() < 10) {
+      time3 = "Time: " + "0" + date.getHours() +
+        ":0" + date.getMinutes();
     }
-    else{
-      time3 = "Time: " + "0"+ date.getHours()+
-      ":"+date.getMinutes();
+    else {
+      time3 = "Time: " + "0" + date.getHours() +
+        ":" + date.getMinutes();
     }
   }
   else {
-    if(date.getMinutes() < 10){
-      time3 = "Time: " + date.getHours()+
-      ":0"+date.getMinutes();
+    if (date.getMinutes() < 10) {
+      time3 = "Time: " + date.getHours() +
+        ":0" + date.getMinutes();
     }
-    else{
-      time3 = "Time: " + date.getHours()+
-      ":"+date.getMinutes();
+    else {
+      time3 = "Time: " + date.getHours() +
+        ":" + date.getMinutes();
     }
   }
-  
+
   time2 = time2 + "\n" + time3;
- 
- 
+
+
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -256,94 +314,88 @@ export default function SimpleTabs() {
   return (
     <Grid item xs={12} container component="main" className={classes.root}>
       <TabPanel value={value} index={0}>
-      <Card className={classes.gridStyle}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {initial}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={title}
-        subheader= {time2} 
-        //component= {time3}   
-      />
-      <CardContent>
-
-        <Typography variant="body2" color="primary" component="p">
-          Host: {name} <br></br>
+        <Card className={classes.gridStyle}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {initial}
+              </Avatar>
+            }
+            title={title}
+            subheader={time2}
+          />
+          <CardContent>
+            <Typography variant="body2" color="primary" component="p">
+              Host: {name} <br></br>
           Address: {address}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          className={nestList.root}
-            >   
-        <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          <PeopleIcon style={{ color: green[500] }}/>
-        </ListItemIcon>
-        <ListItemText primary={invited}/>
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {invitedList}
-        </List>
-      </Collapse>
-      </List>        
-        <FacebookShareButton 
-          url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}
-          >
-          <IconButton aria-label="share">
-            <FacebookIcon size={32} round={true}/>
-          </IconButton>
-        </FacebookShareButton>
-        <EmailShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
-          <IconButton aria-label="share">
-            <EmailIcon size={32} round={true}/>
-          </IconButton>
-        </EmailShareButton>
-        <TwitterShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
-          <IconButton aria-label="share">
-            <TwitterIcon size={32} round={true}/>
-          </IconButton>
-        </TwitterShareButton>
-        
-      </CardActions>
-        <CardContent>
-          <Typography paragraph>{description}
-          </Typography>
-        </CardContent>
-      <CardActions disableSpacing>
-        <Button variant="contained" color="primary">
-             Join with Us
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <List
+              component="nav"
+              aria-labelledby="nested-list-subheader"
+              className={nestList.root}
+            >
+              <ListItem button onClick={handleClick}>
+                <ListItemIcon>
+                  <PeopleIcon style={{ color: green[500] }} />
+                </ListItemIcon>
+                <ListItemText primary={invited} />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {invitedList}
+                </List>
+              </Collapse>
+            </List>
+            <FacebookShareButton
+              url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}
+            >
+              <IconButton aria-label="share">
+                <FacebookIcon size={32} round={true} />
+              </IconButton>
+            </FacebookShareButton>
+            <EmailShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
+              <IconButton aria-label="share">
+                <EmailIcon size={32} round={true} />
+              </IconButton>
+            </EmailShareButton>
+            <TwitterShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
+              <IconButton aria-label="share">
+                <TwitterIcon size={32} round={true} />
+              </IconButton>
+            </TwitterShareButton>
+
+          </CardActions>
+          <CardContent>
+            <Typography paragraph>{description}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <Button variant="contained" color="primary">
+              Join with Us
         </Button>
-      </CardActions>
-    </Card>
+          </CardActions>
+        </Card>
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <CovidChart></CovidChart>
+        <CovidChart></CovidChart>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Weather></Weather>
       </TabPanel>
       <TabPanel value={value} index={0}>
         <Card className={classes.root}>
-          <Grid container xs={12}  direction="row" justify="space-between" alignItems="center" className={classes.gridStyle}>
+          <Grid container xs={12} direction="row" justify="space-between" alignItems="center" className={classes.gridStyle}>
             <Grid item xs={6}>
               <header className="d-flex justify-content-center align-items-center">
                 <h2 className={classes.h1}>Covid Calculation</h2>
               </header>
-              <CovidChart></CovidChart>
+              {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
+
             </Grid>
-          
+
             <Grid item xs={6} >
               <header className="d-flex justify-content-center align-items-center">
                 <h2 className={classes.h2}>Today's Weather</h2>
@@ -353,18 +405,18 @@ export default function SimpleTabs() {
           </Grid>
         </Card>
       </TabPanel>
-                <Card className={classes.root}>
-          <Grid container xs={12}  className={classes.gridStyle}>
-            <Grid item xs={12}>
-              <header className="d-flex justify-content-center align-items-center">
-                <h2 className={classes.h1}>Direction</h2>
-              </header>
-              <MapWrapper></MapWrapper>
-            </Grid>
+      <Card className={classes.root}>
+        <Grid container xs={12} className={classes.gridStyle}>
+          <Grid item xs={12}>
+            <header className="d-flex justify-content-center align-items-center">
+              <h2 className={classes.h1}>Direction</h2>
+            </header>
+            <MapWrapper></MapWrapper>
           </Grid>
-        </Card>
-      
+        </Grid>
+      </Card>
+
     </Grid>
-    
+
   );
 }

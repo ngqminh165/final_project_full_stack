@@ -111,7 +111,6 @@ export default function SignInSide() {
       console.log("Description: " + Description);
       console.log("Celebrate: " + Celebrate_date);
       var user_info = localStorage.getItem('user')
-      //user_info ? console.log(user_info) : console.log("NO DATA");
       user_info=JSON.parse(user_info)
       console.log("ID: " + user_info.id);
       console.log("Time: " + Time);
@@ -142,7 +141,7 @@ export default function SignInSide() {
         "host": {
             "id": user_info.id
         }
-    });
+      });
 
         var config = {
         method: 'post',
@@ -153,15 +152,13 @@ export default function SignInSide() {
         },
         data : data
     };
-
         axios(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));
           setShowSuccess(true)
 
-          history.push("/partydetail/" + response.data.id)
+          //history.push("/partydetail/" + response.data.id)
         })
-
         .catch(function (error) {
           console.log(error);
           setShowError(true)
@@ -300,7 +297,6 @@ export default function SignInSide() {
                     </InputAdornment>
                 ),
                 }}
-                
                 variant="outlined"
                 margin="normal"     
                 required
@@ -316,8 +312,6 @@ export default function SignInSide() {
                 />
             </Grid>
             </Grid>
-
-            
             <Button
               type="submit"
               fullWidth
@@ -328,7 +322,6 @@ export default function SignInSide() {
             >
               Create Party
             </Button>
-    
             <Box mt={5}>
               <Copyright />
             </Box>
@@ -351,9 +344,6 @@ export default function SignInSide() {
             
         </Carousel>
       </Grid>
-              
-            
-          
     </Grid>
   );
 }
