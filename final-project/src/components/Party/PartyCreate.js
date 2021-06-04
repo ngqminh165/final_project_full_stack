@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import DescriptionIcon from '@material-ui/icons/Description';
-import Carousel from 'react-material-ui-carousel'
+
 
 
 function HomeIcon(props) {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
    
-    backgroundImage: 'url(https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80)',
+    backgroundImage: 'url(https://images.unsplash.com/photo-1530023367847-a683933f4172?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -354,21 +354,7 @@ export default function SignInSide() {
           </form>
         </div>
       </Grid>
-      <Grid item xs={false} sm={4} md={7} component={Paper}>
-        <Carousel
-                autoPlay
-                infiniteLoop
-                showThumbs={false}
-                item xs={false} sm={4} md={7}
-                >      
-                  <img class="rounded float-right" alt="Responsive image" height="800" width="800" src="https://images.unsplash.com/photo-1471967183320-ee018f6e114a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1651&q=80"/>
-                  <img class="rounded float-right" alt="Responsive image" height="800" width="800" src="https://images.unsplash.com/photo-1530023367847-a683933f4172?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" />
-                  <img class="rounded float-right" alt="Responsive image" height="800" width="800" src="https://images.unsplash.com/photo-1531956531700-dc0ee0f1f9a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"/>
-                  <img class="rounded float-right" alt="Responsive image" height="800" width="800" src="https://images.unsplash.com/photo-1519214605650-76a613ee3245?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1649&q=80"/>
-                  <img class="rounded float-right" alt="Responsive image" height="800" width="800" src="https://www.incimages.com/uploaded_files/image/1920x1080/getty_614867390_321301.jpg" width='800' height='800'/>     
-            
-        </Carousel>
-      </Grid>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
     </Grid>
   );
 }

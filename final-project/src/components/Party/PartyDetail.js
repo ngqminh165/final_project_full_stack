@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+
 import Button from '@material-ui/core/Button';
 import MapWrapper from "./../GoogleMap/mapWrapper";
 import PropTypes from 'prop-types';
@@ -163,11 +163,11 @@ export default function SimpleTabs() {
   };*/
   const { id } = useParams();
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value] = React.useState(0);
  
   const [title, setTitle] = useState();
   const [address, setLocation] = useState();
-  const [zipcode, setZipcode] = useState();
+  const [setZipcode] = useState();
   const [time, setTime] = useState();
   const [description, setDescription] = useState();
   const [invited, setInvited] = useState();
@@ -175,7 +175,7 @@ export default function SimpleTabs() {
   const [initial, setInitial] = useState();
   //const [attendees, setAdd] = useState({})
   //const history = useHistory();
-  const [expanded, setExpanded] = useState(false);
+  
   const [covidData, setCovidData] = useState({});
 
   const [invitedList, setInvitedList] = useState([]);
@@ -268,8 +268,8 @@ export default function SimpleTabs() {
   useEffect(handleSubmit, [isLoad])
 
   var date = new Date(time);
-  var timestamp = date.getTime();
-  var date2 = new Date(timestamp);
+  
+  
   var time2 = "Date: " + (date.getMonth() + 1) +
     "/" + (date.getDate()) +
     "/" + date.getFullYear();
