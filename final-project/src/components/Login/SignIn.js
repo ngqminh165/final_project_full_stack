@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const {setUserNameDisplay} = useContext(LoginContext)
+  const {setLogin} = useContext(LoginContext)
 
   const classes = useStyles();
   const [email, setEmail] = useState();
@@ -86,7 +87,7 @@ export default function SignInSide() {
       setShowSuccess(false)
       setShowError(false)
 
-      axios.post( process.env.HEROKU_API_URL +'auth/local', {
+      axios.post( process.env.REACT_APP_API_URL +'auth/local', {
         "identifier": email,
         "password": password
       })
@@ -96,10 +97,12 @@ export default function SignInSide() {
         localStorage.setItem('JWT', response.data.jwt);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setUserNameDisplay(response.data.user.username)
+        setLogin(true)
         history.push("/");
 
       })
       .catch(error => {
+        alert(error)
         setShowError(true)
       });
     }

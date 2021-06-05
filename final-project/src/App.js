@@ -3,7 +3,6 @@ import "./App.css"
 import Navbar from "./components/Navbar"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import PartyCard from "./components/Party/PartyCard"
-import PartyContainer from "./components/Party/PartyContainer"
 import CreateForm from "./components/Party/PartyCreate.js"
 import SignInSide from "./components/Login/SignIn"
 import SignUp from "./components/Login/SignUp"
@@ -12,20 +11,22 @@ import {LoginContext} from "./Contexts/LoginContext"
 import PartyDetail2 from "./components/Party/PartyDetail2"
 
 function App() {
-  const [usernameDisplay, setUserNameDisplay] = useState('Login');
+  let titleHeader = "Join With Us" 
+  let userinfo = JSON.parse(localStorage.getItem("user"))
+  localStorage.getItem("user") && (titleHeader = userinfo.username)
 
+  const [usernameDisplay, setUserNameDisplay] = useState(titleHeader);
+  let checkLogin = false;
+  localStorage.getItem("JWT") && (checkLogin = true)
+  const [isLogin, setLogin] = useState(checkLogin);
   return (
-    <LoginContext.Provider value={{usernameDisplay, setUserNameDisplay}}>
+    <LoginContext.Provider value={{usernameDisplay, setUserNameDisplay, isLogin, setLogin}}>
     <Router>
       <Navbar />
       <Switch>
         <Route path="/" exact>
-          <div className="homepage__content-component px-3 px-md-0 ml-md-4">
-            <PartyCard />
-          </div>
-          <div className="homepage__content-component px-3 px-md-0 ml-md-4">
-            <PartyContainer />
-          </div>
+          {isLogin? <PartyCard />: <SignInSide />}
+        
         </Route>
         <Route path="/login" exact>
         {/* <Login Page /> */}

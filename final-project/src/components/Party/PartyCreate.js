@@ -93,7 +93,7 @@ export default function SignInSide() {
 
   const handleSubmit = async e => {
     console.log(localStorage.getItem('JWT'));
-    var user_info = localStorage.getItem('User')
+    var user_info = localStorage.getItem('user')
     user_info=JSON.parse(user_info)
     var timeParts = Time.split(':');
     var dateParts = Celebrate_date.split('-')
@@ -119,7 +119,7 @@ export default function SignInSide() {
       'Content-Type': 'application/json'
     }
     
-    axios.post(process.env.HEROKU_API_URL +'parties', data, {
+    axios.post(process.env.REACT_APP_API_URL +'parties', data, {
         headers: headers
       })
       .then((response) => {

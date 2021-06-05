@@ -66,17 +66,15 @@ export default function SignUp() {
   const [username, setUserName] = useState();
 
   const {setUserNameDisplay} = useContext(LoginContext)
+  const {setLogin} = useContext(LoginContext)
+
   const history = useHistory();
 
   const handleSubmit = async e => {
       //console.log(localStorage.getItem('JWT'));
-      console.log("email: " + email)
-      console.log("password: " + password)
-      console.log("password: " + password)
-
       e.preventDefault();
 
-      axios.post( process.env.HEROKU_API_URL +'auth/local/register', {
+      axios.post( process.env.REACT_APP_API_URL +'auth/local/register', {
         "username": username,
         "email": email,
         "password": password,
@@ -86,8 +84,9 @@ export default function SignUp() {
       .then(response => {
         console.log(response)
         localStorage.setItem('JWT', response.data.jwt);
-        localStorage.setItem('User', JSON.stringify(response.data.user));
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         setUserNameDisplay(response.data.user.username)
+        setLogin(true)
         history.push("/");
 
       })
