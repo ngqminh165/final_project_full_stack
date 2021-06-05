@@ -14,6 +14,8 @@ import Grid from "@material-ui/core/Grid";
 import CovidChart from "./../Chartjs/Chart";
 import Weather from "../Weather/Weather";
 
+import Paper from '@material-ui/core/Paper';
+
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -230,8 +232,197 @@ export default function SimpleTabs() {
   const handleClick = () => {
     setOpen(!open);
   };
+  function Row1() {
+    return (
+      <React.Fragment>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>      
+          <Card className={classes.gridStyle}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  {initial}
+                </Avatar>
+              }
+              title={title}
+              subheader={time}
+            />
+            <CardContent>
+              <Typography variant="body2" color="primary" component="p">
+                Host: {name} <br></br>
+                Address: {address}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <List
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+                className={nestList.root}
+              >
+                <ListItem button onClick={handleClick}>
+                  <ListItemIcon>
+                    <PeopleIcon style={{ color: green[500] }} />
+                  </ListItemIcon>
+                  <ListItemText primary={invited} />
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {invitedList}
+                  </List>
+                </Collapse>
+              </List>
+              <FacebookShareButton
+                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+              >
+                <IconButton aria-label="share">
+                  <FacebookIcon size={32} round={true} />
+                </IconButton>
+              </FacebookShareButton>
+              <EmailShareButton
+                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+              >
+                <IconButton aria-label="share">
+                  <EmailIcon size={32} round={true} />
+                </IconButton>
+              </EmailShareButton>
+              <TwitterShareButton
+                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+              >
+                <IconButton aria-label="share">
+                  <TwitterIcon size={32} round={true} />
+                </IconButton>
+              </TwitterShareButton>
+            </CardActions>
+            <CardContent>
+              <Typography paragraph>{description}</Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <Button variant="contained" color="primary">
+                Join with Us
+              </Button>
+            </CardActions>
+          </Card>
+        </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+          {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
+          </Paper>
+        </Grid>
+      </React.Fragment>
+    );
+  }
+
+  function Row2() {
+    return (
+      <React.Fragment>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+          <MapWrapper></MapWrapper>
+        </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+            <Weather></Weather>
+          </Paper>
+        </Grid>
+      </React.Fragment>
+    );
+  }
 
   return (
+
+    <div className={classes.root}>
+    <Grid container spacing={1} direction='row' alignContent='stretch'>
+    <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>      
+          <Card className={classes.gridStyle}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  {initial}
+                </Avatar>
+              }
+              title={title}
+              subheader={time}
+            />
+            <CardContent>
+              <Typography variant="body2" color="primary" component="p">
+                Host: {name} <br></br>
+                Address: {address}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <List
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+                className={nestList.root}
+              >
+                <ListItem button onClick={handleClick}>
+                  <ListItemIcon>
+                    <PeopleIcon style={{ color: green[500] }} />
+                  </ListItemIcon>
+                  <ListItemText primary={invited} />
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {invitedList}
+                  </List>
+                </Collapse>
+              </List>
+              <FacebookShareButton
+                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+              >
+                <IconButton aria-label="share">
+                  <FacebookIcon size={32} round={true} />
+                </IconButton>
+              </FacebookShareButton>
+              <EmailShareButton
+                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+              >
+                <IconButton aria-label="share">
+                  <EmailIcon size={32} round={true} />
+                </IconButton>
+              </EmailShareButton>
+              <TwitterShareButton
+                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+              >
+                <IconButton aria-label="share">
+                  <TwitterIcon size={32} round={true} />
+                </IconButton>
+              </TwitterShareButton>
+            </CardActions>
+            <CardContent>
+              <Typography paragraph>{description}</Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <Button variant="contained" color="primary">
+                Join with Us
+              </Button>
+            </CardActions>
+          </Card>
+        </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+          {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+          <MapWrapper></MapWrapper>
+        </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+            <Weather></Weather>
+          </Paper>
+        </Grid>
+    </Grid>
+  </div>
+/*
     <Grid item={true} xs={12} container component="main" className={classes.root}>
       <TabPanel value={value} index={0}>
         <Card className={classes.gridStyle}>
@@ -343,6 +534,6 @@ export default function SimpleTabs() {
           </Grid>
         </Grid>
       </Card>
-    </Grid>
-  );
+    </Grid>;*/
+  )
 }

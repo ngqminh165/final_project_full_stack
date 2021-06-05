@@ -13,6 +13,8 @@ const Wrapper = styled.div`
   -webkit-text-fill-color: ${(props) => props.inputColor || "white"};
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+  backgroundRepeat: 'no-repeat';
+  background-position: 'left';
 `
 const Wrapper2 = styled.div`
   background: transparent;
