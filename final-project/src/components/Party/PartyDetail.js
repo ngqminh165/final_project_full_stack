@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Alert from '@material-ui/lab/Alert';
 
 import Button from "@material-ui/core/Button";
 import MapWrapper from "./../GoogleMap/mapWrapper";
@@ -14,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 import CovidChart from "./../Chartjs/Chart";
 import Weather from "../Weather/Weather";
 
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
 
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -141,6 +142,16 @@ export default function SimpleTabs() {
   const [invited, setInvited] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
+  const [isHost, setIsHost] = useState(false);
+  const [hostId, setHostID] = useState();
+  const [listInvited, setListInvited] = useState();
+  const [isAttend, setIsAttend] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  let id_host = ""
+  let userinfo = JSON.parse(localStorage.getItem("user"))
+  localStorage.getItem("user") && (id_host = userinfo.id)
+
   //const [attendees, setAdd] = useState({})
   //const history = useHistory();
 
@@ -200,7 +211,16 @@ export default function SimpleTabs() {
         );
         setName(response.data.host.username);
         setInitial(response.data.host.username.charAt(0));
-
+        setHostID(response.data.host.id)
+        setListInvited(response.data.invitedList)
+        if (id_host == response.data.host.id)
+          setIsHost(true);
+        response.data.invitedList.forEach( person => {
+          if (person.id == id_host) {
+            setIsAttend(true);
+          }
+        })
+        
         //let zip = fibs2zip()
         //let fibs = zip[response.data.Zipcode]
         let fibs = 41051;
@@ -229,6 +249,50 @@ export default function SimpleTabs() {
 
   const [open, setOpen] = React.useState(false);
 
+  function joinWithUs() {
+    const my_id = {
+      "id": id_host
+    }
+    listInvited.push(my_id)
+    console.log(listInvited)
+    var data = JSON.stringify({
+      "invitedList": listInvited
+    });
+    const headers = {
+      'Authorization': 'Bearer ' + localStorage.getItem('JWT'), 
+      'Content-Type': 'application/json'
+    }
+    
+    axios.put(process.env.REACT_APP_API_URL +'parties/' + id, data, {
+        headers: headers
+      })
+      .then((response) => {
+        setShowSuccess(true)
+        setIsAttend(true)
+        setInvited(
+          response.data.invitedList.length === 1
+            ? response.data.invitedList.length + " Buddy"
+            : response.data.invitedList.length + " Buddies"
+        );
+        setInvitedList(
+          response.data.invitedList.map(function (attendee) {
+            return (
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <PersonRoundedIcon color="secondary" />
+                </ListItemIcon>
+                <ListItemText primary={attendee.username} />
+              </ListItem>
+            );
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error)
+
+      })
+  }
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -236,78 +300,81 @@ export default function SimpleTabs() {
     return (
       <React.Fragment>
         <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>      
-          <Card className={classes.gridStyle}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  {initial}
-                </Avatar>
-              }
-              title={title}
-              subheader={time}
-            />
-            <CardContent>
-              <Typography variant="body2" color="primary" component="p">
-                Host: {name} <br></br>
-                Address: {address}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <List
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-                className={nestList.root}
-              >
-                <ListItem button onClick={handleClick}>
-                  <ListItemIcon>
-                    <PeopleIcon style={{ color: green[500] }} />
-                  </ListItemIcon>
-                  <ListItemText primary={invited} />
-                  {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {invitedList}
-                  </List>
-                </Collapse>
-              </List>
-              <FacebookShareButton
-                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-              >
-                <IconButton aria-label="share">
-                  <FacebookIcon size={32} round={true} />
-                </IconButton>
-              </FacebookShareButton>
-              <EmailShareButton
-                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-              >
-                <IconButton aria-label="share">
-                  <EmailIcon size={32} round={true} />
-                </IconButton>
-              </EmailShareButton>
-              <TwitterShareButton
-                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-              >
-                <IconButton aria-label="share">
-                  <TwitterIcon size={32} round={true} />
-                </IconButton>
-              </TwitterShareButton>
-            </CardActions>
-            <CardContent>
-              <Typography paragraph>{description}</Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <Button variant="contained" color="primary">
-                Join with Us
-              </Button>
-            </CardActions>
-          </Card>
-        </Paper>
+          <Paper className={classes.paper}>
+            <Card className={classes.gridStyle}>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {initial}
+                  </Avatar>
+                }
+                title={title}
+                subheader={time}
+              />
+              <CardContent>
+                <Typography variant="body2" color="primary" component="p">
+                  Host: {name} <br></br>
+                  Address: {address}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <List
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                  className={nestList.root}
+                >
+                  <ListItem button onClick={handleClick}>
+                    <ListItemIcon>
+                      <PeopleIcon style={{ color: green[500] }} />
+                    </ListItemIcon>
+                    <ListItemText primary={invited} />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {invitedList}
+                    </List>
+                  </Collapse>
+                </List>
+                <FacebookShareButton
+                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+                >
+                  <IconButton aria-label="share">
+                    <FacebookIcon size={32} round={true} />
+                  </IconButton>
+                </FacebookShareButton>
+                <EmailShareButton
+                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+                >
+                  <IconButton aria-label="share">
+                    <EmailIcon size={32} round={true} />
+                  </IconButton>
+                </EmailShareButton>
+                <TwitterShareButton
+                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+                >
+                  <IconButton aria-label="share">
+                    <TwitterIcon size={32} round={true} />
+                  </IconButton>
+                </TwitterShareButton>
+              </CardActions>
+              <CardContent>
+                <Typography paragraph>{description}</Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                {isHost?
+                <Button variant="contained" color="primary">
+                  Join with Us
+                </Button>:
+                null
+                }
+              </CardActions>
+            </Card>
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
-          {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
+            {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
           </Paper>
         </Grid>
       </React.Fragment>
@@ -319,8 +386,8 @@ export default function SimpleTabs() {
       <React.Fragment>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
-          <MapWrapper></MapWrapper>
-        </Paper>
+            <MapWrapper></MapWrapper>
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
@@ -332,97 +399,109 @@ export default function SimpleTabs() {
   }
 
   return (
-
     <div className={classes.root}>
-    <Grid container spacing={1} direction='row' alignContent='stretch'>
-    <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>      
-          <Card className={classes.gridStyle}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  {initial}
-                </Avatar>
-              }
-              title={title}
-              subheader={time}
-            />
-            <CardContent>
-              <Typography variant="body2" color="primary" component="p">
-                Host: {name} <br></br>
-                Address: {address}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <List
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-                className={nestList.root}
-              >
-                <ListItem button onClick={handleClick}>
-                  <ListItemIcon>
-                    <PeopleIcon style={{ color: green[500] }} />
-                  </ListItemIcon>
-                  <ListItemText primary={invited} />
-                  {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {invitedList}
-                  </List>
-                </Collapse>
-              </List>
-              <FacebookShareButton
-                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-              >
-                <IconButton aria-label="share">
-                  <FacebookIcon size={32} round={true} />
-                </IconButton>
-              </FacebookShareButton>
-              <EmailShareButton
-                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-              >
-                <IconButton aria-label="share">
-                  <EmailIcon size={32} round={true} />
-                </IconButton>
-              </EmailShareButton>
-              <TwitterShareButton
-                url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-              >
-                <IconButton aria-label="share">
-                  <TwitterIcon size={32} round={true} />
-                </IconButton>
-              </TwitterShareButton>
-            </CardActions>
-            <CardContent>
-              <Typography paragraph>{description}</Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <Button variant="contained" color="primary">
-                Join with Us
-              </Button>
-            </CardActions>
-          </Card>
-        </Paper>
-        </Grid>
+      <Grid container spacing={1} direction="row" alignContent="stretch">
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
-          {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
+            <Card className={classes.gridStyle}>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {initial}
+                  </Avatar>
+                }
+                title={title}
+                subheader={time}
+              />
+              <CardContent>
+                <Typography variant="body2" color="primary" component="p">
+                  Host: {name} <br></br>
+                  Address: {address}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <List
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                  className={nestList.root}
+                >
+                  <ListItem button onClick={handleClick}>
+                    <ListItemIcon>
+                      <PeopleIcon style={{ color: green[500] }} />
+                    </ListItemIcon>
+                    <ListItemText primary={invited} />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {invitedList}
+                    </List>
+                  </Collapse>
+                </List>
+                <FacebookShareButton
+                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+                >
+                  <IconButton aria-label="share">
+                    <FacebookIcon size={32} round={true} />
+                  </IconButton>
+                </FacebookShareButton>
+                <EmailShareButton
+                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+                >
+                  <IconButton aria-label="share">
+                    <EmailIcon size={32} round={true} />
+                  </IconButton>
+                </EmailShareButton>
+                <TwitterShareButton
+                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
+                >
+                  <IconButton aria-label="share">
+                    <TwitterIcon size={32} round={true} />
+                  </IconButton>
+                </TwitterShareButton>
+              </CardActions>
+              <CardContent>
+                <Typography paragraph>{description}</Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+              {
+                isHost?
+                <Button variant="contained" class="btn btn-dark"  disabled>
+                  You are host
+                </Button>:
+                isAttend?
+                <Button variant="contained" color="green">
+                  You Are Joined
+                </Button>
+                :
+                <Button variant="contained" color="primary"  onClick={joinWithUs}>
+                  Join with Us
+                </Button>
+              }
+              </CardActions>
+              { showSuccess ? <Alert severity="success" id="success_alert">Joined Successfully!</Alert>: null}
+
+            </Card>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
-          <MapWrapper></MapWrapper>
-        </Paper>
+            {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Paper className={classes.paper}>
+            <MapWrapper></MapWrapper>
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
             <Weather></Weather>
           </Paper>
         </Grid>
-    </Grid>
-  </div>
-/*
+      </Grid>
+    </div>
+    /*
     <Grid item={true} xs={12} container component="main" className={classes.root}>
       <TabPanel value={value} index={0}>
         <Card className={classes.gridStyle}>
@@ -535,5 +614,5 @@ export default function SimpleTabs() {
         </Grid>
       </Card>
     </Grid>;*/
-  )
+  );
 }
