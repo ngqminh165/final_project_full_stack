@@ -42,7 +42,7 @@ class MapWrapper extends React.PureComponent {
 
       },
       (error) => {
-        alert(error)
+        
         console.error(error);
       }
     );

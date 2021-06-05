@@ -484,10 +484,10 @@ export default function SimpleTabs() {
             </Card>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
+        <Grid item xs={12} sm={6} md={6} marginTop={210}>
+          
             {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
-          </Paper>
+         
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
