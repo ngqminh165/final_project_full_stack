@@ -76,7 +76,7 @@ export default function SignUp() {
 
       e.preventDefault();
 
-      axios.post( process.env.REACT_APP_API_URL +'auth/local/register', {
+      axios.post( process.env.HEROKU_API_URL +'auth/local/register', {
         "username": username,
         "email": email,
         "password": password,

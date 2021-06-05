@@ -119,7 +119,7 @@ export default function SignInSide() {
       'Content-Type': 'application/json'
     }
     
-    axios.post(process.env.REACT_APP_API_URL +'parties', data, {
+    axios.post(process.env.HEROKU_API_URL +'parties', data, {
         headers: headers
       })
       .then((response) => {

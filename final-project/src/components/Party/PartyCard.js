@@ -81,8 +81,8 @@ state = {
   componentDidMount = async () => {
     
     try {
-      console.log(process.env.REACT_APP_API_URL) 
-      const response = await axios.get(process.env.REACT_APP_API_URL + 'parties');
+      console.log(process.env.HEROKU_API_URL) 
+      const response = await axios.get('https://cellaborate-backend.herokuapp.com/' + 'parties');
       this.setState({ list_parties: response.data });
       console.log(response.data)
     } catch (error) {

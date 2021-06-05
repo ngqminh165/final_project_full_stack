@@ -224,7 +224,7 @@ export default function SimpleTabs() {
     if (isLoad) {
     var config = {
       method: 'get',
-      url: process.env.REACT_APP_API_URL + 'parties/' + id,
+      url: process.env.HEROKU_API_URL + 'parties/' + id,
       headers: { 
         'Authorization': 'Bearer ' + localStorage.getItem("JWT"), 
         'Content-Type': 'application/json'
@@ -269,7 +269,7 @@ export default function SimpleTabs() {
 
   var date = new Date(time);
   
-  
+
   var time2 = "Date: " + (date.getMonth() + 1) +
     "/" + (date.getDate()) +
     "/" + date.getFullYear();
@@ -344,18 +344,18 @@ export default function SimpleTabs() {
               </Collapse>
             </List>
             <FacebookShareButton
-              url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}
+              url={process.env.HEROKU_APP_URL + 'partydetail/' + id}
             >
               <IconButton aria-label="share">
                 <FacebookIcon size={32} round={true} />
               </IconButton>
             </FacebookShareButton>
-            <EmailShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
+            <EmailShareButton url={process.env.HEROKU_APP_URL + 'partydetail/' + id}>
               <IconButton aria-label="share">
                 <EmailIcon size={32} round={true} />
               </IconButton>
             </EmailShareButton>
-            <TwitterShareButton url={process.env.REACT_APP_PUBLIC_URL + 'partydetail/' + id}>
+            <TwitterShareButton url={process.env.HEROKU_APP_URL + 'partydetail/' + id}>
               <IconButton aria-label="share">
                 <TwitterIcon size={32} round={true} />
               </IconButton>
