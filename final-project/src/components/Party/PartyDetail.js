@@ -140,6 +140,8 @@ export default function SimpleTabs() {
   const [address, setLocation] = useState();
   const [time, setTime] = useState();
   const [description, setDescription] = useState();
+  const [zipcode, setZipcode] = useState();
+
   const [invited, setInvited] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
@@ -210,6 +212,7 @@ export default function SimpleTabs() {
             ? response.data.invitedList.length + " Buddy"
             : response.data.invitedList.length + " Buddies"
         );
+        setZipcode(response.data.Zipcode)
         setName(response.data.host.username);
         setInitial(response.data.host.username.charAt(0));
         setHostID(response.data.host.id)
@@ -294,107 +297,7 @@ export default function SimpleTabs() {
   const handleClick = () => {
     setOpen(!open);
   };
-  function Row1() {
-    return (
-      <React.Fragment>
-        <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
-            <Card className={classes.gridStyle}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    {initial}
-                  </Avatar>
-                }
-                title={title}
-                subheader={time}
-              />
-              <CardContent>
-                <Typography variant="body2" color="primary" component="p">
-                  Host: {name} <br></br>
-                  Address: {address}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <List
-                  component="nav"
-                  aria-labelledby="nested-list-subheader"
-                  className={nestList.root}
-                >
-                  <ListItem button onClick={handleClick}>
-                    <ListItemIcon>
-                      <PeopleIcon style={{ color: green[500] }} />
-                    </ListItemIcon>
-                    <ListItemText primary={invited} />
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                  </ListItem>
-                  <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {invitedList}
-                    </List>
-                  </Collapse>
-                </List>
-                <FacebookShareButton
-                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-                >
-                  <IconButton aria-label="share">
-                    <FacebookIcon size={32} round={true} />
-                  </IconButton>
-                </FacebookShareButton>
-                <EmailShareButton
-                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-                >
-                  <IconButton aria-label="share">
-                    <EmailIcon size={32} round={true} />
-                  </IconButton>
-                </EmailShareButton>
-                <TwitterShareButton
-                  url={process.env.REACT_APP_PUBLIC_URL + "partydetail/" + id}
-                >
-                  <IconButton aria-label="share">
-                    <TwitterIcon size={32} round={true} />
-                  </IconButton>
-                </TwitterShareButton>
-              </CardActions>
-              <CardContent>
-                <Typography paragraph>{description}</Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                {isHost?
-                <Button variant="contained" color="primary">
-                  Join with Us
-                </Button>:
-                null
-                }
-              </CardActions>
-            </Card>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
-            {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
-          </Paper>
-        </Grid>
-      </React.Fragment>
-    );
-  }
 
-  function Row2() {
-    return (
-      <React.Fragment>
-        <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
-            <MapWrapper></MapWrapper>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
-            <Weather></Weather>
-          </Paper>
-        </Grid>
-      </React.Fragment>
-    );
-  }
 
   return (
     <div className={classes.root}>
@@ -482,10 +385,10 @@ export default function SimpleTabs() {
             </Card>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} md={6} marginTop={210}>
-          
-            {covidData ? <CovidChart data={covidData}></CovidChart> : ""}
-         
+        <Grid item xs={12} sm={6} md={6} marginTop={210} mt={5}>
+        <Container>
+            {covidData ? <CovidChart data={covidData} zipcode={zipcode}></CovidChart> : ""}
+        </Container>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Container>
