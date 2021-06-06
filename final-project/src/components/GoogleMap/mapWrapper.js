@@ -19,26 +19,30 @@ function getGeo() {
 class MapWrapper extends React.PureComponent {
   constructor(props){
     super(props);
+    console.log(props)
     this.state = {
       long: -122.5285835,
       lat: 45.5387549,
-      address: "Portland OR",
-      hostname: props.hostname
+      address: props.address,
+      hostname: props.hostname,
+      isRender:false
     }
 }
   
-  componentDidMount() {
-    this.setState({ address: this.props.address})
+  componentDidUpdate() {
     Geocode.setApiKey("AIzaSyC9A3xNcfCmqNUeNTGxHVFmA9AE4_Fry3U");
     Geocode.setLanguage("en");
     Geocode.setRegion("us");
+    this.props.address &&
     Geocode.fromAddress(this.props.address).then(
       (response) => {
         
         const {lat:my_lat, lng:my_long } = response.results[0].geometry.location;
-        this.setState({ long: my_long, lat: my_lat })
+        this.setState({ long: my_long, lat: my_lat, isRender:true, hostname: this.props.hostname  })
+        
         console.log(this.state.lat)
         console.log(this.state.long)
+        console.log(this.state.hostname)
 
       },
       (error) => {
@@ -49,7 +53,8 @@ class MapWrapper extends React.PureComponent {
   }
 
   render() {
-    return (
+    let htmlReturn = ''
+    this.state.isRender ? htmlReturn = (
       <div style={styles}>
         <GoogleMapComponentWithMarker
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyC9A3xNcfCmqNUeNTGxHVFmA9AE4_Fry3U"
@@ -62,7 +67,8 @@ class MapWrapper extends React.PureComponent {
 
         />
       </div>
-    )
+    ): htmlReturn = null;
+    return htmlReturn
   }
 }
 

@@ -70,7 +70,7 @@ const GoogleMapComponentWithMarker = withScriptjs(
   withGoogleMap(props => {
     return (
     <GoogleMap
-      defaultZoom={8}
+      defaultZoom={15}
       defaultCenter={{
         lat: props.lat, // latitude for the center of the map
         lng: props.long // longitude for the center of the map
@@ -118,9 +118,6 @@ const GoogleMapComponentWithMarker = withScriptjs(
       // required
       options={options}
       />
-
-     
-
       {props.isMarkerShown && <Marker position={{ lat: props.lat, lng:  props.long }} />}
     </GoogleMap>
   )})

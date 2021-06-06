@@ -491,7 +491,7 @@ export default function SimpleTabs() {
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
-            <MapWrapper></MapWrapper>
+            <MapWrapper address={address} hostname={name}></MapWrapper>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
