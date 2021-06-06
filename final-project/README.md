@@ -1,12 +1,18 @@
-# Getting Started with Create React App
+# Getting Started with Cellaborate Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was run locally in [http://localhost:3000](http://localhost:3000) or run online at [https://cellaborate.herokuapp.com/](https://cellaborate.herokuapp.com/). 
 
-## Available Scripts
+## Run Loccally
 
-In the project directory, you can run:
+1. First, navigate to the project directory: 
+###### cd ../Github/final_project_full_stack/final-project
+During our working, we add a lot of module. So, in the project directory, need to run the line:
 
-### `yarn start`
+### `npm install`
+
+It will jump in package.json and install all module in it. Next, In the project directory, you can run:
+
+### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,57 +20,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
+2. The app will not show all the list, or create the new list because we just only run the font-end. Therefore, to show all the party's lists in the main page and run other features with party's lists. We need to navigate to back-end directory:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###### cd ../Github/final_project_full_stack/final-backend
 
-### `yarn build`
+In the project directory, you can run:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `npm run develop`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+It will run strapi develop which manage the back-end party's lists. Now you can see all the lists and use all the features of the app. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Run Online
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The faster way to see our app. Just need to click to the link: [https://cellaborate.herokuapp.com/](https://cellaborate.herokuapp.com/). It included all the font-end and back-end management as well as all features. 

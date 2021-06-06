@@ -47,7 +47,7 @@ function NavBarElements() {
             <Nav.Link href="/create" style={activeStyle} >
               Create
             </Nav.Link>
-            <Nav.Link href="/covid" style={activeStyle}>Should I Go?</Nav.Link>
+            {/* <Nav.Link href="/covid" style={activeStyle}>Should I Go?</Nav.Link> */}
           </Nav> 
          
           <Nav>
