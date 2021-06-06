@@ -222,11 +222,9 @@ export default function SimpleTabs() {
           }
         })
         
-        //let zip = fibs2zip()
-        //let fibs = zip[response.data.Zipcode]
-        let fibs = 41051;
+        let zip = zip2fibs()
+        let fibs = zip[response.data.Zipcode]
         let covid_url = `https://api.covidactnow.org/v2/county/${fibs}.json?apiKey=${covidApiKey}`;
-        console.log(covid_url);
         getCovidData(covid_url);
 
         setInvitedList(
@@ -255,7 +253,6 @@ export default function SimpleTabs() {
       "id": id_host
     }
     listInvited.push(my_id)
-    console.log(listInvited)
     var data = JSON.stringify({
       "invitedList": listInvited
     });

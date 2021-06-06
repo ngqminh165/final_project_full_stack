@@ -92,7 +92,6 @@ export default function SignInSide() {
   const history = useHistory();
 
   const handleSubmit = async e => {
-    console.log(localStorage.getItem('JWT'));
     var user_info = localStorage.getItem('user')
     user_info=JSON.parse(user_info)
     var timeParts = Time.split(':');
@@ -131,65 +130,7 @@ export default function SignInSide() {
       })
     
   }
-  /*
-  function handleSubmit (e) {
-      
-      console.log(localStorage.getItem('JWT'));
-      console.log("party_title: " + party_title);
-      console.log("Address: " + Address);
-      console.log("Zipcode: " + Zipcode);
-      console.log("Description: " + Description);
-      console.log("Celebrate: " + Celebrate_date);
-      var user_info = localStorage.getItem('user')
-      user_info=JSON.parse(user_info)
-      console.log("ID: " + user_info.id);
-      console.log("Time: " + Time);
-      console.log(Celebrate_date + " " + Time);
-      var timeParts = Time.split(':');
-      var dateParts = Celebrate_date.split('-')
 
-      var date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1]);
-
-      var timestamp = date.getTime();
-      e.preventDefault();
-      
-
-      var data = JSON.stringify({
-        "party_title": party_title,
-        "Address": Address,
-        "Zipcode": Zipcode,
-        "Description": Description,
-        "Celebrate_date": timestamp,
-        "host": {
-            "id": user_info.id
-        }
-      });
-
-      var config = {
-      method: 'post',
-      url: process.env.REACT_APP_API_URL +'parties',
-      headers: { 
-          'Authorization': 'Bearer ' + localStorage.getItem('JWT'), 
-          'Content-Type': 'application/json'
-      },
-      data : data
-    };
-    axios(config)
-      .then(function (response) {
-        alert("test");
-        alert(JSON.stringify(response.data));
-        console.log(JSON.stringify(response.data));
-        
-
-        history.push('/partydetail/' + response.data.id);
-      })
-      .catch(function (error) {
-        alert(error);
-        console.log(error);
-        
-      });
-    }*/
-  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />

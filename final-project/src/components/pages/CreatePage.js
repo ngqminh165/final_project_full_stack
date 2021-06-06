@@ -103,19 +103,9 @@ export default function SignInSide() {
   const history = useHistory();
 
   const handleSubmit = async e => {
-      console.log(localStorage.getItem('JWT'));
-      console.log("party_title: " + party_title);
-      console.log("Address: " + Address);
-      console.log("Zipcode: " + Zipcode);
-      console.log("Description: " + Description);
-      console.log("Celebrate: " + Celebrate_date);
+
       var user_info = localStorage.getItem('user')
       user_info=JSON.parse(user_info)
-      console.log("ID: " + user_info.id);
-      console.log("Time: " + Time);
-
-      console.log(Celebrate_date + " " + Time);
-
       var timeParts = Time.split(':');
       var dateParts = Celebrate_date.split('-'),
       date;
@@ -123,8 +113,6 @@ export default function SignInSide() {
       date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1]);
 
       var timestamp = date.getTime();
-      console.log(timestamp); //1379426880000
-      console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
 
       e.preventDefault();
       setShowSuccess(false)
@@ -153,18 +141,12 @@ export default function SignInSide() {
     };
         axios(config)
         .then(function (response) {
-          alert("test")
-          alert(JSON.stringify(response.data))
-          console.log(JSON.stringify(response.data));
           setShowSuccess(true)
 
           history.push("/partydetail/" + response.data.id)
         })
         .catch(function (error) {
-          alert("test")
-          alert((error))
 
-          console.log(error);
           setShowError(true)
         });
     }

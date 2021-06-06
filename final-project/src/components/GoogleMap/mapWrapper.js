@@ -19,7 +19,6 @@ function getGeo() {
 class MapWrapper extends React.PureComponent {
   constructor(props){
     super(props);
-    console.log(props)
     this.state = {
       long: -122.5285835,
       lat: 45.5387549,
@@ -39,10 +38,6 @@ class MapWrapper extends React.PureComponent {
         
         const {lat:my_lat, lng:my_long } = response.results[0].geometry.location;
         this.setState({ long: my_long, lat: my_lat, isRender:true, hostname: this.props.hostname  })
-        
-        console.log(this.state.lat)
-        console.log(this.state.long)
-        console.log(this.state.hostname)
 
       },
       (error) => {

@@ -82,7 +82,6 @@ export default function SignUp() {
         "blocked": false
       })
       .then(response => {
-        console.log(response)
         localStorage.setItem('JWT', response.data.jwt);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setUserNameDisplay(response.data.user.username)

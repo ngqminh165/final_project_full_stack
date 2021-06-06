@@ -80,7 +80,6 @@ const PartyHeader = props => {
     const colors = ["#9F1412", "#242D3C", "#168851", "#247058", "#2E372F", "#170312", "#33032F", "#531253", "#4D5859", "#328555" ];
 
     const mycolor = colors[Math.floor(Math.random() * colors.length)];
-    console.log(mycolor)
     return (
         <Wrapper color={mycolor}>
             <div className="container-fluid party-card-highlight__header">
