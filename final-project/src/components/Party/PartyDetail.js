@@ -33,6 +33,7 @@ import { lightBlue } from "@material-ui/core/colors";
 import { green } from "@material-ui/core/colors";
 
 import zip2fibs from "../data/data";
+import Container from '@material-ui/core/Container';
 
 import {
   EmailShareButton,
@@ -490,14 +491,14 @@ export default function SimpleTabs() {
          
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
+          <Container>
             <MapWrapper address={address} hostname={name}></MapWrapper>
-          </Paper>
+          </Container>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
-          <Paper className={classes.paper}>
+          <Container>
             <Weather></Weather>
-          </Paper>
+          </Container>
         </Grid>
       </Grid>
     </div>
