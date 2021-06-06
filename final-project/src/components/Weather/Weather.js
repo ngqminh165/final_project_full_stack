@@ -13,8 +13,8 @@ const Wrapper = styled.div`
   -webkit-text-fill-color: ${(props) => props.inputColor || "white"};
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
-  backgroundRepeat: 'no-repeat';
-  background-position: 'left';
+  backgroundrepeat: "no-repeat";
+  background-position: "left";
 `
 const Wrapper2 = styled.div`
   background: transparent;
@@ -100,9 +100,9 @@ const Weather = () => {
             : "white"
         }
       >
-        {/* <header className="d-flex justify-content-center align-items-center">
+        <header className="d-flex justify-content-center align-items-center">
           <h2>Today's Weather</h2>
-        </header> */}
+        </header>
         <div className="container">
           <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
             <div class="col-auto">
