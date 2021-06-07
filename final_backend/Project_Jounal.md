@@ -1,8 +1,13 @@
-Name: Tuan Dinh,
-Minh Nguyen, Cody Green
+Name: Tuan Dinh
+Collaborators: Minh Nguyen, Cody Green
 CS 465P
 6/5/2021
 
 ##Project Journal:
 
-I eat dinner now guys. I will do after my dinner...
++ The cellaborate app which I create with my team include Minh Nguyen and Cody Green is the app to help people create their own parties with theer friends. The app has worked with all features: First, you can sign in for create your new party. If you didn't have an account yet, you can sign it up. After you create the account on our site, you name will automatically add to the back-end, and you will become one of our user. To be come the users, you can create your new party, you can invite your friends by share the link to them through Facebook, Email, or Twwiter. Moreover, you can check the Covid case, the weather, and map at your party's location.
++ The app work with sign in, sign up, create new party, correctly declear the party detail information. You can share the party with our friend by Facebook, Email, and Twitter. The Covid API also work to show the Covid calculation in the zipcode of the party. The weather also work for the input zipcode. Finally, the google maps also show the location of the host. Any feature have checked and all of it is worked.
++ For the process to build this app. First, the idea of this app is from Minh. After that, me and Cody have start to improve Minh's idea with all of the additional feature. For my journal, I start with the create page. In this process, I didn't have any issues which make me hard to do. Next, my job is to do the google map. It is really the challenge for me. I have some issues in this part, and it take me a lot of time to do the google maps for the party location. I have the trouble with the passing zipcode and name of the host to google map and convert it to latitude and longitude. The react_google_map doesn't let me pass the zipcode to the function of the google map. Therefore, I need to fix each issue of it and write my own funtion to pass it through. Next, I also do the back-end for this project. I used strapi to save the information of each user. This is the first time I did the back-end, so that I spend a lot time to read and understand the document of Strapi. I also use heroku to deploy our app online. I also have a lot issues to deploy my project. My app has crash during the deployment, and I have to fix each issue. Some issue such as we have more than one yarn.lock file, we didn't update the utils library, we got too much bugs... Howerver, in the end Minh and Cody have helped me a lot fix these issues as well as to finish our project correctly. I hope you can check and enjoy our first application for Party Management.
+Our app heroku link: [https://cellaborate.herokuapp.com/](https://cellaborate.herokuapp.com/).
+Our app heroku back-end: https://cellaborate-backend.herokuapp.com/
+Our GitHub repo:  https://github.com/ngqminh165/final_project_full_stack

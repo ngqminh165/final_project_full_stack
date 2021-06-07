@@ -33,3 +33,9 @@ It will run strapi develop which manage the back-end party's lists. Now you can 
 ## Run Online
 
 The faster way to see our app. Just need to click to the link: [https://cellaborate.herokuapp.com/](https://cellaborate.herokuapp.com/). It included all the font-end and back-end management as well as all features. 
+
+## Outside Library
++ Strapi manage back-end
++ material-ui
++ react-google-maps
++ Google API

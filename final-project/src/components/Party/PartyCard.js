@@ -12,6 +12,7 @@ const Wrapper = styled.div`
         border-radius: 6.5px;
         box-shadow: 3px 6px 19px -3px rgba(0, 0, 0, 0.3);
         background-color: #ffffff;
+        height: 300px;
     }
     .party-highlight__card-title {
         margin: 16px 45px 16px 19px;
@@ -63,6 +64,7 @@ const Wrapper = styled.div`
             margin: 20px 16px 0px 16px;
         }
     }
+    
 `;
 
 
@@ -100,7 +102,7 @@ state = {
     const parties = this.state.list_parties.map(party => (
 
          
-    <Grid item xs={4} >
+    <Grid item xs={6} md={4} minHeight="500px" >
       <Wrapper  onClick={this.handleClick.bind(this, party.id)} style={{cursor: 'pointer'}}>
 
             <div className="party-highlight__card p-0 m-2">
